@@ -2,57 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* VR-Cyber Guard Design System - Cyberpunk Theme
+All colors MUST be HSL for proper theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cyber Dark Theme */
+    --background: 220 30% 5%;
+    --foreground: 120 100% 85%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 25% 8%;
+    --card-foreground: 120 100% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 25% 8%;
+    --popover-foreground: 120 100% 85%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 120 100% 50%;
+    --primary-foreground: 220 30% 5%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 195 100% 50%;
+    --secondary-foreground: 220 30% 5%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 120 50% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 100% 50%;
+    --accent-foreground: 220 30% 5%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 220 30% 5%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 30% 25%;
+    --input: 220 25% 12%;
+    --ring: 120 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Cyber-specific tokens */
+    --neon-green: 120 100% 50%;
+    --neon-blue: 195 100% 50%;
+    --neon-red: 0 100% 50%;
+    --cyber-grid: 120 30% 15%;
+    --terminal-bg: 220 40% 8%;
+    --terminal-text: 120 100% 75%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(120 100% 50%), hsl(195 100% 50%));
+    --gradient-cyber: linear-gradient(45deg, hsl(220 30% 5%), hsl(220 25% 12%));
+    --gradient-glow: radial-gradient(circle, hsl(120 100% 50% / 0.3), transparent);
+    
+    /* Shadows and Glows */
+    --shadow-neon: 0 0 20px hsl(120 100% 50% / 0.5);
+    --shadow-cyber: 0 8px 32px hsl(120 100% 50% / 0.15);
+    --glow-pulse: 0 0 30px hsl(120 100% 50% / 0.8);
+    
+    /* Animations */
+    --transition-cyber: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.5s ease-in-out;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 220 30% 6%;
+    --sidebar-foreground: 120 100% 85%;
+    --sidebar-primary: 120 100% 50%;
+    --sidebar-primary-foreground: 220 30% 5%;
+    --sidebar-accent: 220 25% 12%;
+    --sidebar-accent-foreground: 120 100% 85%;
+    --sidebar-border: 120 30% 25%;
+    --sidebar-ring: 120 100% 50%;
   }
 
   .dark {
@@ -101,5 +118,128 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer components {
+  /* Cyber Grid Background */
+  .cyber-grid {
+    background-image: 
+      linear-gradient(hsl(var(--cyber-grid) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--cyber-grid) / 0.3) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+  }
+  
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+  
+  /* Neon Glow Effects */
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+    transition: var(--transition-glow);
+  }
+  
+  .neon-glow:hover {
+    box-shadow: var(--glow-pulse);
+  }
+  
+  /* Terminal Styles */
+  .terminal {
+    background: hsl(var(--terminal-bg));
+    color: hsl(var(--terminal-text));
+    font-family: 'Roboto Mono', monospace;
+    border: 1px solid hsl(var(--neon-green) / 0.5);
+    box-shadow: var(--shadow-cyber);
+  }
+  
+  /* Cyber Button Variants */
+  .btn-cyber {
+    background: var(--gradient-primary);
+    border: 1px solid hsl(var(--neon-green));
+    color: hsl(var(--primary-foreground));
+    transition: var(--transition-cyber);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-cyber::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--neon-green) / 0.4), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-cyber:hover::before {
+    left: 100%;
+  }
+  
+  .btn-cyber:hover {
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-2px);
+  }
+  
+  /* Pulse Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--neon-green) / 0.5);
+    }
+    50% { 
+      box-shadow: 0 0 40px hsl(var(--neon-green) / 0.8);
+    }
+  }
+  
+  /* Loading Bar */
+  .loading-bar {
+    background: var(--gradient-primary);
+    height: 4px;
+    border-radius: 2px;
+    box-shadow: var(--shadow-neon);
+    animation: loading-scan 2s infinite;
+  }
+  
+  @keyframes loading-scan {
+    0% { width: 0%; opacity: 1; }
+    50% { width: 100%; opacity: 1; }
+    100% { width: 100%; opacity: 0.5; }
+  }
+  
+  /* Matrix Text Effect */
+  .matrix-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: matrix-flicker 3s infinite;
+  }
+  
+  @keyframes matrix-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  /* Hover Scale Effect */
+  .hover-scale {
+    transition: var(--transition-cyber);
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-cyber);
   }
 }

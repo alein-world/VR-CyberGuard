@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				orbitron: ['Orbitron', 'sans-serif'],
+				mono: ['Roboto Mono', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,6 +65,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				cyber: {
+					green: 'hsl(var(--neon-green))',
+					blue: 'hsl(var(--neon-blue))',
+					red: 'hsl(var(--neon-red))',
+					grid: 'hsl(var(--cyber-grid))',
+				},
+				terminal: {
+					bg: 'hsl(var(--terminal-bg))',
+					text: 'hsl(var(--terminal-text))',
 				}
 			},
 			borderRadius: {
