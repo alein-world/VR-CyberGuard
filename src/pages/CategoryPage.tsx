@@ -2,101 +2,19 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getCategoryData } from "@/data/toolsData";
 import { 
   ArrowLeft, 
   ExternalLink, 
-  Play, 
-  Star,
   Clock,
   Shield,
-  Terminal,
-  Zap
+  Terminal
 } from "lucide-react";
 
 export default function CategoryPage() {
   const { category } = useParams<{ category: string }>();
 
-  // Sample tool data - in a real app this would come from an API
-  const toolsData: Record<string, any> = {
-    "information-gathering": {
-      title: "Information Gathering",
-      description: "Network reconnaissance and target enumeration tools for cybersecurity professionals",
-      tools: [
-        {
-          id: "nmap",
-          name: "Nmap",
-          description: "Network discovery and security auditing utility",
-          difficulty: "Beginner",
-          rating: 4.9,
-          category: "Network Scanner",
-          lastUpdated: "2024-01-15",
-          icon: "🔍"
-        },
-        {
-          id: "masscan",
-          name: "Masscan",
-          description: "High-speed TCP port scanner",
-          difficulty: "Intermediate",
-          rating: 4.6,
-          category: "Port Scanner", 
-          lastUpdated: "2024-01-10",
-          icon: "⚡"
-        },
-        {
-          id: "recon-ng",
-          name: "Recon-ng",
-          description: "Web reconnaissance framework",
-          difficulty: "Advanced",
-          rating: 4.7,
-          category: "Framework",
-          lastUpdated: "2024-01-12",
-          icon: "🌐"
-        },
-        {
-          id: "theharvester",
-          name: "theHarvester",
-          description: "E-mail, subdomain and people names harvester",
-          difficulty: "Beginner",
-          rating: 4.5,
-          category: "OSINT",
-          lastUpdated: "2024-01-08",
-          icon: "📧"
-        }
-      ]
-    },
-    "wireless-hacking": {
-      title: "Wireless Hacking",
-      description: "WiFi security testing and wireless penetration tools",
-      tools: [
-        {
-          id: "aircrack-ng",
-          name: "Aircrack-ng",
-          description: "Complete suite of tools to assess WiFi network security",
-          difficulty: "Intermediate",
-          rating: 4.8,
-          category: "WiFi Cracker",
-          lastUpdated: "2024-01-14",
-          icon: "📡"
-        },
-        {
-          id: "kismet",
-          name: "Kismet",
-          description: "Wireless network detector and packet analyzer",
-          difficulty: "Advanced",
-          rating: 4.6,
-          category: "Analyzer",
-          lastUpdated: "2024-01-11",
-          icon: "📊"
-        }
-      ]
-    }
-  };
-
-  const categoryData = toolsData[category || ""] || {
-    title: "Category Not Found",
-    description: "The requested category does not exist.",
-    tools: []
-  };
+  const categoryData = getCategoryData(category || "");
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -107,16 +25,6 @@ export default function CategoryPage() {
     }
   };
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`h-4 w-4 ${
-          i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"
-        }`}
-      />
-    ));
-  };
 
   return (
     <div className="min-h-screen cyber-grid">
@@ -174,12 +82,6 @@ export default function CategoryPage() {
                           {tool.difficulty}
                         </Badge>
                       </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      {renderStars(tool.rating)}
-                      <span className="text-sm text-muted-foreground ml-2">
-                        {tool.rating}
-                      </span>
                     </div>
                   </div>
                 </CardHeader>

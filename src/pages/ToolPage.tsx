@@ -4,11 +4,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TerminalSimulation } from "@/components/TerminalSimulation";
+import { getToolById } from "@/data/toolsData";
 import { 
   ArrowLeft, 
   ExternalLink, 
   Download, 
-  Star,
   Clock,
   Shield,
   BookOpen,
@@ -20,94 +20,7 @@ import {
 export default function ToolPage() {
   const { toolId } = useParams<{ toolId: string }>();
 
-  // Sample tool data - in a real app this would come from an API
-  const toolsData: Record<string, any> = {
-    "nmap": {
-      name: "Nmap",
-      fullName: "Network Mapper",
-      description: "Nmap (Network Mapper) is a free and open-source network discovery and security auditing utility.",
-      longDescription: "Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. It provides a number of features for probing computer networks, including host discovery and service and operating system detection.",
-      category: "Information Gathering",
-      difficulty: "Beginner",
-      rating: 4.9,
-      downloads: "10M+",
-      lastUpdated: "2024-01-15",
-      officialSite: "https://nmap.org",
-      icon: "🔍",
-      whatItIs: "A powerful network scanning tool used for network discovery and security auditing.",
-      whatItsUsedFor: "Network administrators and security professionals use Nmap to identify what devices are running on their systems, discovering hosts that are available and the services they offer, finding open ports, and detecting security risks.",
-      howItWorks: "Nmap sends specially crafted packets to the target host(s) and then analyzes their responses. Based on the responses, it can determine what services are running, what operating system is running, what type of device it is, and many other characteristics.",
-      commands: [
-        "nmap -sn 192.168.1.0/24",
-        "nmap -A target.com", 
-        "nmap -sS -O target.com"
-      ],
-      results: [
-        "Host Discovery Complete: Found 12 active hosts",
-        "Port Scan Complete: Open ports - 22, 80, 443, 8080",
-        "OS Detection: Linux 3.2 - 4.9 (98% confidence)"
-      ],
-      useCases: [
-        "Network inventory and asset management",
-        "Monitoring host or service uptime",
-        "Network security auditing",
-        "Firewall testing and configuration"
-      ],
-      features: [
-        "Host discovery",
-        "Port scanning", 
-        "OS detection",
-        "Service version detection",
-        "Scriptable interaction with target"
-      ]
-    },
-    "aircrack-ng": {
-      name: "Aircrack-ng",
-      fullName: "Aircrack-ng Suite",
-      description: "Complete suite of tools to assess WiFi network security.",
-      longDescription: "Aircrack-ng is a complete suite of tools to assess WiFi network security. It focuses on different areas of WiFi security: monitoring, attacking, testing, and cracking.",
-      category: "Wireless Hacking",
-      difficulty: "Intermediate",
-      rating: 4.8,
-      downloads: "5M+",
-      lastUpdated: "2024-01-14",
-      officialSite: "https://aircrack-ng.org",
-      icon: "📡",
-      whatItIs: "A comprehensive WiFi network security assessment toolkit.",
-      whatItsUsedFor: "Security professionals use Aircrack-ng to test the security of wireless networks, identify vulnerabilities, and assess WiFi encryption strength.",
-      howItWorks: "The suite captures and analyzes wireless traffic, performs attacks on WiFi networks, and attempts to crack encryption keys using various techniques including dictionary attacks and brute force.",
-      commands: [
-        "airodump-ng wlan0mon",
-        "aircrack-ng capture.cap -w wordlist.txt",
-        "aireplay-ng -0 5 -a [BSSID] wlan0mon"
-      ],
-      results: [
-        "Monitoring Mode Activated: Interface wlan0mon ready",
-        "WPA Handshake Captured: 4-way handshake complete",
-        "Key Found! Password: 'admin123' (took 2.3 minutes)"
-      ],
-      useCases: [
-        "WiFi penetration testing",
-        "Wireless security auditing",
-        "Network troubleshooting",
-        "Security awareness training"
-      ],
-      features: [
-        "Packet capture and analysis",
-        "WEP and WPA/WPA2 cracking",
-        "Deauthentication attacks",
-        "Fake access point creation",
-        "Statistical analysis"
-      ]
-    }
-  };
-
-  const tool = toolsData[toolId || ""] || {
-    name: "Tool Not Found",
-    description: "The requested tool does not exist.",
-    category: "Unknown",
-    difficulty: "Unknown"
-  };
+  const tool = getToolById(toolId || "");
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -118,18 +31,7 @@ export default function ToolPage() {
     }
   };
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`h-4 w-4 ${
-          i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"
-        }`}
-      />
-    ));
-  };
-
-  if (!toolsData[toolId || ""]) {
+  if (!tool) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -201,11 +103,8 @@ export default function ToolPage() {
             >
               {tool.difficulty}
             </Badge>
-            <div className="flex items-center space-x-1">
-              {renderStars(tool.rating)}
-              <span className="text-sm text-muted-foreground ml-2">
-                {tool.rating} ({tool.downloads} downloads)
-              </span>
+            <div className="text-sm text-muted-foreground">
+              Professional-grade security tool
             </div>
             <Badge variant="outline">
               <Clock className="mr-1 h-3 w-3" />
