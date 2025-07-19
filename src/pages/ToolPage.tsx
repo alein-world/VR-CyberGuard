@@ -14,7 +14,8 @@ import {
   BookOpen,
   Code,
   Play,
-  Info
+  Info,
+  Star
 } from "lucide-react";
 
 export default function ToolPage() {
