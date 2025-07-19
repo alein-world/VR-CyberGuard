@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getCategoryData } from "@/data/toolsData";
+import { getToolsByCategory } from "@/data/toolsData";
 import { 
   ArrowLeft, 
   ExternalLink, 
