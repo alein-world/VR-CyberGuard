@@ -86,11 +86,19 @@ export default function ToolPage() {
             </div>
             
             <div className="flex space-x-3">
-              <Button variant="cyber" size="lg">
+              <Button 
+                variant="cyber" 
+                size="lg"
+                onClick={() => window.open(tool.downloadUrl || tool.officialSite, '_blank')}
+              >
                 <Download className="mr-2 h-4 w-4" />
-                Install Tool
+                Download Tool
               </Button>
-              <Button variant="outline" size="lg">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => window.open(tool.officialSite, '_blank')}
+              >
                 <ExternalLink className="mr-2 h-4 w-4" />
                 Official Site
               </Button>
@@ -238,13 +246,31 @@ export default function ToolPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button variant="outline" className="justify-start h-auto p-4">
+                    <Button 
+                      variant="outline" 
+                      className="justify-start h-auto p-4"
+                      onClick={() => window.open(tool.officialSite, '_blank')}
+                    >
                       <ExternalLink className="mr-3 h-5 w-5" />
                       <div className="text-left">
                         <div className="font-semibold">Official Documentation</div>
                         <div className="text-sm text-muted-foreground">Complete reference guide</div>
                       </div>
                     </Button>
+                    
+                    {tool.downloadUrl && (
+                      <Button 
+                        variant="outline" 
+                        className="justify-start h-auto p-4"
+                        onClick={() => window.open(tool.downloadUrl, '_blank')}
+                      >
+                        <Download className="mr-3 h-5 w-5" />
+                        <div className="text-left">
+                          <div className="font-semibold">Download Tool</div>
+                          <div className="text-sm text-muted-foreground">Get the latest version</div>
+                        </div>
+                      </Button>
+                    )}
                     
                     <Button variant="outline" className="justify-start h-auto p-4">
                       <BookOpen className="mr-3 h-5 w-5" />

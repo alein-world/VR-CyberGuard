@@ -8,6 +8,7 @@ export interface Tool {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   lastUpdated: string;
   officialSite: string;
+  downloadUrl?: string;
   icon: string;
   whatItIs: string;
   whatItsUsedFor: string;
@@ -18,13 +19,15 @@ export interface Tool {
   features: string[];
   installSteps: string[];
   basicUsage: string[];
+  platform?: "Windows" | "Linux" | "macOS" | "Cross-platform";
+  license?: "Free" | "Commercial" | "Open Source";
 }
 
 export const toolsData: Record<string, Tool[]> = {
   "information-gathering": [
     {
       id: "nmap",
-      name: "Nmap",
+      name: "Nmap", 
       fullName: "Network Mapper",
       description: "Network discovery and security auditing utility",
       longDescription: "Nmap is used to discover hosts and services on a computer network by sending packets and analyzing the responses. It provides a number of features for probing computer networks, including host discovery and service and operating system detection.",
@@ -32,6 +35,9 @@ export const toolsData: Record<string, Tool[]> = {
       difficulty: "Beginner",
       lastUpdated: "2024-01-15",
       officialSite: "https://nmap.org",
+      downloadUrl: "https://nmap.org/download.html",
+      platform: "Cross-platform",
+      license: "Open Source",
       icon: "🔍",
       whatItIs: "A powerful network scanning tool used for network discovery and security auditing.",
       whatItsUsedFor: "Network administrators and security professionals use Nmap to identify what devices are running on their systems, discovering hosts that are available and the services they offer, finding open ports, and detecting security risks.",
@@ -1811,13 +1817,16 @@ export const toolsData: Record<string, Tool[]> = {
     {
       id: "wireshark",
       name: "Wireshark",
-      fullName: "Wireshark Network Protocol Analyzer",
+      fullName: "Wireshark Network Protocol Analyzer", 
       description: "Network protocol analyzer for troubleshooting and analysis",
       longDescription: "Wireshark is the world's foremost and widely-used network protocol analyzer. It lets you see what's happening on your network at a microscopic level and is the de facto standard across many commercial and non-profit enterprises.",
       category: "Forensics",
-      difficulty: "Intermediate",
+      difficulty: "Intermediate", 
       lastUpdated: "2024-01-21",
       officialSite: "https://www.wireshark.org",
+      downloadUrl: "https://www.wireshark.org/download.html",
+      platform: "Cross-platform",
+      license: "Open Source",
       icon: "🦈",
       whatItIs: "The world's most popular network protocol analyzer for detailed packet inspection.",
       whatItsUsedFor: "Used by network administrators, security analysts, and forensics investigators to troubleshoot network issues, analyze traffic, and investigate security incidents.",
