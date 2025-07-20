@@ -2247,6 +2247,55 @@ export const getAllTools = (): Tool[] => {
   return Object.values(toolsData).flat();
 };
 
+export const getCategoryData = (category: string) => {
+  const categoryMap: Record<string, { title: string; description: string }> = {
+    "network-analysis": {
+      title: "Network Analysis Arsenal",
+      description: "Advanced tools for network reconnaissance, monitoring, and vulnerability assessment. Master the art of network discovery and analysis."
+    },
+    "vulnerability-scanning": {
+      title: "Vulnerability Scanning Hub", 
+      description: "Comprehensive vulnerability assessment tools to identify security weaknesses and potential entry points in your systems."
+    },
+    "penetration-testing": {
+      title: "Penetration Testing Suite",
+      description: "Professional-grade penetration testing tools for ethical hacking and security assessment of applications and infrastructure."
+    },
+    "forensics": {
+      title: "Digital Forensics Lab",
+      description: "Cutting-edge forensic tools for digital investigation, evidence collection, and incident response analysis."
+    },
+    "malware-analysis": {
+      title: "Malware Analysis Center",
+      description: "Specialized tools for analyzing, reverse engineering, and understanding malicious software and threats."
+    },
+    "web-application-assessment": {
+      title: "Web Security Testing",
+      description: "Advanced web application security testing tools for identifying vulnerabilities in modern web applications."
+    },
+    "wireless-hacking": {
+      title: "Wireless Security Suite", 
+      description: "Professional wireless security testing and penetration tools for WiFi network assessment."
+    },
+    "password-tools": {
+      title: "Password Security Suite",
+      description: "Advanced password security tools for testing password strength, cracking, and secure password management."
+    }
+  };
+
+  const categoryKey = category.toLowerCase().replace(/\s+/g, '-');
+  const categoryInfo = categoryMap[categoryKey] || {
+    title: "Security Tools",
+    description: "Professional cybersecurity tools for security professionals."
+  };
+
+  return {
+    title: categoryInfo.title,
+    description: categoryInfo.description,
+    tools: getToolsByCategory(category)
+  };
+};
+
 export const searchTools = (query: string): Tool[] => {
   const allTools = getAllTools();
   const lowercaseQuery = query.toLowerCase();
