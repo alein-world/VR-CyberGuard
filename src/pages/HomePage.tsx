@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,6 +19,23 @@ import heroImage from "@/assets/hero-hacker.jpg";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [userIP, setUserIP] = useState<string>("");
+
+  useEffect(() => {
+    // Capture user's IP address
+    const fetchUserIP = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        setUserIP(data.ip);
+      } catch (error) {
+        console.error('Failed to fetch IP:', error);
+        setUserIP('Unable to detect');
+      }
+    };
+    
+    fetchUserIP();
+  }, []);
 
   const categories = [
     {
@@ -140,7 +157,11 @@ export default function HomePage() {
                 <Shield className="mr-2 h-5 w-5" />
                 Explore Tools Arsenal
               </Button>
-              <Button variant="outline" size="xl">
+              <Button 
+                variant="outline" 
+                size="xl"
+                onClick={() => document.getElementById('documentation')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 View Documentation
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -170,6 +191,17 @@ export default function HomePage() {
               <div className="text-muted-foreground">Available</div>
             </div>
           </div>
+          
+          {/* User IP Display */}
+          {userIP && (
+            <div className="mt-8 text-center">
+              <div className="inline-flex items-center px-4 py-2 bg-card/80 border border-border/50 rounded-lg backdrop-blur-sm">
+                <Globe className="h-4 w-4 text-cyber-blue mr-2" />
+                <span className="text-sm text-muted-foreground">Your IP: </span>
+                <span className="text-sm font-mono text-cyber-green ml-1">{userIP}</span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -222,6 +254,82 @@ export default function HomePage() {
                 </Link>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Documentation Section */}
+      <section id="documentation" className="py-16 bg-card/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-orbitron text-3xl lg:text-4xl font-bold mb-4">
+              Platform Documentation
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Comprehensive guides, tutorials, and best practices for cybersecurity professionals
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="font-orbitron flex items-center">
+                  <Shield className="h-5 w-5 text-cyber-green mr-2" />
+                  Getting Started
+                </CardTitle>
+                <CardDescription>
+                  Essential guide for beginners entering cybersecurity
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Setting up your testing environment</li>
+                  <li>• Understanding tool categories</li>
+                  <li>• Basic security concepts</li>
+                  <li>• Legal and ethical guidelines</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="font-orbitron flex items-center">
+                  <Search className="h-5 w-5 text-cyber-blue mr-2" />
+                  Tool Mastery
+                </CardTitle>
+                <CardDescription>
+                  Advanced techniques and professional workflows
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Advanced command combinations</li>
+                  <li>• Automation and scripting</li>
+                  <li>• Custom tool configurations</li>
+                  <li>• Performance optimization</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="font-orbitron flex items-center">
+                  <Bug className="h-5 w-5 text-cyber-red mr-2" />
+                  Best Practices
+                </CardTitle>
+                <CardDescription>
+                  Professional standards and security protocols
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Responsible disclosure</li>
+                  <li>• Documentation standards</li>
+                  <li>• Risk assessment methods</li>
+                  <li>• Compliance frameworks</li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

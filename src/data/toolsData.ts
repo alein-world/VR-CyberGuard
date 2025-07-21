@@ -30,6 +30,99 @@ export interface Tool {
 export const toolsData: Record<string, Tool[]> = {
   "information-gathering": [
     {
+      id: "ip-lookup",
+      name: "IP Lookup",
+      fullName: "IP Address Lookup & Geolocation Tool",
+      description: "Real-time IP address information and geolocation service",
+      longDescription: "IP Lookup is a comprehensive tool for analyzing IP addresses, providing detailed information about geographical location, ISP details, organization data, and potential security threats associated with specific IP addresses.",
+      category: "Information Gathering",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-20",
+      officialSite: "https://whatismyipaddress.com",
+      downloadUrl: "https://whatismyipaddress.com/ip-lookup",
+      platform: "Cross-platform",
+      license: "Free",
+      icon: "🌐",
+      whatItIs: "A web-based and command-line tool for retrieving detailed information about IP addresses including geolocation, ISP, and security data.",
+      whatItsUsedFor: "Security analysts use IP lookup tools to investigate suspicious network activity, track the origin of attacks, verify user locations, and gather intelligence during forensic investigations.",
+      howItWorks: "The tool queries multiple databases containing IP address allocations, geolocation data, and threat intelligence to provide comprehensive information about a target IP address.",
+      commands: [
+        "curl ipinfo.io/8.8.8.8",
+        "nslookup 8.8.8.8",
+        "whois 8.8.8.8",
+        "dig -x 8.8.8.8",
+        "curl 'https://ipapi.co/8.8.8.8/json/'",
+        "traceroute 8.8.8.8"
+      ],
+      results: [
+        "IP: 8.8.8.8, Location: Mountain View, CA, ISP: Google LLC",
+        "Hostname: dns.google, Organization: Google Public DNS",
+        "Country: United States, Region: California, Timezone: America/Los_Angeles",
+        "ASN: AS15169, Threat Level: Low, VPN/Proxy: No",
+        "Coordinates: 37.4056, -122.0775, Accuracy: City level"
+      ],
+      useCases: [
+        "Investigating suspicious login attempts from unknown locations",
+        "Verifying the geographical location of website visitors",
+        "Tracking the source of cyber attacks and malicious traffic",
+        "Compliance checking for geo-restricted content delivery",
+        "Forensic analysis of network logs and security incidents"
+      ],
+      features: [
+        "Real-time IP geolocation with city-level accuracy",
+        "ISP and organization identification",
+        "Threat intelligence integration",
+        "VPN/Proxy detection capabilities",
+        "Historical IP data analysis",
+        "Bulk IP lookup functionality",
+        "API integration support",
+        "Export results in multiple formats"
+      ],
+      installSteps: [
+        "No installation required for web-based tools",
+        "For command-line: Install curl (usually pre-installed)",
+        "For advanced features: Register for API access at ipinfo.io",
+        "Alternative: Install dedicated tools like 'geoip' or 'ipinfo-cli'",
+        "Verify connectivity: curl ipinfo.io/json"
+      ],
+      basicUsage: [
+        "Web Interface: Visit whatismyipaddress.com and enter target IP",
+        "Command Line: curl ipinfo.io/[IP_ADDRESS]",
+        "Get your own IP: curl ipinfo.io",
+        "JSON format: curl ipinfo.io/8.8.8.8/json",
+        "Specific field: curl ipinfo.io/8.8.8.8/city"
+      ],
+      advancedExamples: [
+        "Bulk lookup: for ip in $(cat ip_list.txt); do curl ipinfo.io/$ip; done",
+        "Threat analysis: curl ipinfo.io/[IP]/threat | jq '.threat_level'",
+        "ASN lookup: whois -h whois.cymru.com ' -v [IP_ADDRESS]'",
+        "Reverse DNS: dig -x [IP_ADDRESS] +short",
+        "Traceroute analysis: traceroute [IP_ADDRESS] | grep -E '[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+'"
+      ],
+      realWorldScenarios: [
+        "Incident Response: Analyzing the source of a DDoS attack by looking up attacking IP addresses",
+        "Fraud Detection: Verifying if user login locations match expected geographical patterns",
+        "Content Delivery: Determining optimal server locations based on user IP distributions",
+        "Compliance Audit: Ensuring access restrictions are properly enforced by geography",
+        "Threat Hunting: Correlating suspicious IPs with known threat actor infrastructure"
+      ],
+      troubleshooting: [
+        "Rate limiting: Some services limit queries per hour - use API keys for higher limits",
+        "Accuracy issues: IP geolocation can be inaccurate for mobile/VPN traffic",
+        "False positives: Cross-reference results from multiple services for accuracy",
+        "API errors: Check your internet connection and API key validity",
+        "Outdated data: Use multiple sources as IP allocations change frequently"
+      ],
+      securityTips: [
+        "Never rely solely on IP geolocation for security decisions",
+        "Be aware that VPNs and proxies can mask true user locations",
+        "Use IP reputation services alongside geolocation data",
+        "Log and monitor IP lookup activities for audit trails",
+        "Respect privacy laws when collecting and storing IP data",
+        "Implement rate limiting to prevent abuse of lookup services"
+      ]
+    },
+    {
       id: "nmap",
       name: "Nmap", 
       fullName: "Network Mapper",
