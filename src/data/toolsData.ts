@@ -1062,85 +1062,6 @@ export const toolsData: Record<string, Tool[]> = {
         "Use encrypted communications for sensitive operations",
         "Document all activities for compliance and reporting"
       ]
-    },
-    {
-      id: "social-engineer-toolkit",
-      name: "SET",
-      fullName: "Social-Engineer Toolkit",
-      description: "Framework for social engineering penetration testing",
-      longDescription: "The Social-Engineer Toolkit is an open-source penetration testing framework designed for social engineering attacks and gathering information.",
-      category: "Exploitation",
-      difficulty: "Intermediate",
-      lastUpdated: "2024-01-25",
-      officialSite: "https://www.trustedsec.com/tools/the-social-engineer-toolkit-set/",
-      downloadUrl: "https://github.com/trustedsec/social-engineer-toolkit",
-      platform: "Cross-platform",
-      license: "Open Source",
-      icon: "🎭",
-      whatItIs: "A specialized framework for conducting social engineering attacks during penetration tests.",
-      whatItsUsedFor: "Social engineering testing, phishing campaigns, awareness training, and human factor security assessment.",
-      howItWorks: "Provides pre-built attack vectors and templates to test human vulnerabilities through various social engineering techniques.",
-      commands: [
-        "setoolkit",
-        "se-toolkit",
-        "python setoolkit.py",
-        "./setoolkit"
-      ],
-      results: [
-        "SET framework initialized",
-        "Phishing email sent to 50 targets",
-        "Credential harvester captured 12 passwords",
-        "USB payload generated successfully"
-      ],
-      useCases: [
-        "Social engineering testing",
-        "Phishing awareness training",
-        "Human factor assessment",
-        "Security awareness validation"
-      ],
-      features: [
-        "Phishing attack vectors",
-        "Website cloning",
-        "Mass mailer",
-        "USB/DVD attacks",
-        "Wireless access point attacks"
-      ],
-      installSteps: [
-        "Clone repository: git clone https://github.com/trustedsec/social-engineer-toolkit.git",
-        "Navigate to directory: cd social-engineer-toolkit",
-        "Install dependencies: pip install -r requirements.txt",
-        "Run installer: python setup.py install"
-      ],
-      basicUsage: [
-        "Launch SET: setoolkit",
-        "Select attack vector from main menu",
-        "Configure target information",
-        "Deploy attack and monitor results"
-      ],
-      advancedExamples: [
-        "Spear phishing: Create targeted emails using harvested information",
-        "Website cloning: Clone legitimate site for credential harvesting",
-        "USB attacks: Generate malicious USB payloads for physical access",
-        "SMS phishing: Craft convincing text message attacks"
-      ],
-      realWorldScenarios: [
-        "Employee Training: Test staff susceptibility to phishing attacks",
-        "Executive Assessment: Targeted spear-phishing against high-value individuals",
-        "Physical Security: USB drop attacks in corporate parking lots",
-        "Incident Simulation: Recreate real-world attack scenarios for training"
-      ],
-      troubleshooting: [
-        "Email delivery issues: Configure proper SMTP settings and reputation",
-        "Website cloning fails: Check target site structure and dependencies",
-        "Payload not executing: Verify target system compatibility",
-        "Detection by security tools: Modify templates and delivery methods"
-      ],
-      securityTips: [
-        "Always get explicit written authorization before conducting tests",
-        "Use realistic but non-harmful scenarios for training",
-        "Properly brief targets after testing to prevent trauma",
-        "Comply with local laws and organizational policies"
-      ]
     }
   ],
   "mobile-security": [
@@ -1622,50 +1543,135 @@ export const toolsData: Record<string, Tool[]> = {
         "Validate decompiled code accuracy through dynamic analysis"
       ]
     }
+  ],
+  "Social Engineering": [
+    {
+      id: "social-engineer-toolkit",
+      name: "SET",
+      fullName: "Social-Engineer Toolkit",
+      description: "Framework for social engineering penetration testing",
+      longDescription: "The Social-Engineer Toolkit is an open-source penetration testing framework designed for social engineering attacks and gathering information.",
+      category: "Social Engineering",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-25",
+      officialSite: "https://www.trustedsec.com/tools/the-social-engineer-toolkit-set/",
+      downloadUrl: "https://github.com/trustedsec/social-engineer-toolkit",
+      platform: "Cross-platform",
+      license: "Open Source",
+      icon: "🎭",
+      whatItIs: "A specialized framework for conducting social engineering attacks during penetration tests.",
+      whatItsUsedFor: "Social engineering testing, phishing campaigns, awareness training, and human factor security assessment.",
+      howItWorks: "Provides pre-built attack vectors and templates to test human vulnerabilities through various social engineering techniques.",
+      commands: [
+        "setoolkit",
+        "se-toolkit",
+        "python setoolkit.py",
+        "./setoolkit"
+      ],
+      results: [
+        "SET framework initialized",
+        "Phishing email sent to 50 targets",
+        "Credential harvester captured 12 passwords",
+        "USB payload generated successfully"
+      ],
+      useCases: [
+        "Social engineering testing",
+        "Phishing awareness training",
+        "Human factor assessment",
+        "Security awareness validation"
+      ],
+      features: [
+        "Phishing attack vectors",
+        "Website cloning",
+        "Mass mailer",
+        "USB/DVD attacks",
+        "Wireless access point attacks"
+      ],
+      installSteps: [
+        "Clone repository: git clone https://github.com/trustedsec/social-engineer-toolkit.git",
+        "Navigate to directory: cd social-engineer-toolkit",
+        "Install dependencies: sudo python setup.py install",
+        "Launch toolkit: sudo setoolkit"
+      ],
+      basicUsage: [
+        "Launch SET: sudo setoolkit",
+        "Select attack vector from main menu",
+        "Configure phishing campaign",
+        "Deploy and monitor results"
+      ],
+      advancedExamples: [
+        "Create custom phishing templates",
+        "Setup credential harvester with SSL",
+        "Deploy USB/CD autorun payloads",
+        "Combine with Metasploit for full exploitation"
+      ],
+      realWorldScenarios: [
+        "Employee security awareness testing",
+        "Red team social engineering assessments",
+        "Phishing simulation campaigns",
+        "Human vulnerability identification"
+      ],
+      troubleshooting: [
+        "Run as root for full functionality",
+        "Check firewall settings for web services",
+        "Verify email server configuration",
+        "Update framework regularly"
+      ],
+      securityTips: [
+        "Only use in authorized testing environments",
+        "Obtain proper written consent before testing",
+        "Keep detailed logs of all activities",
+        "Follow responsible disclosure practices"
+      ]
+    }
   ]
 };
 
 export function getCategoryData(category: string) {
-  const categoryMap: Record<string, { title: string; description: string }> = {
+  const categoryMap: Record<string, { title: string; description: string; tools: Tool[] }> = {
     "information-gathering": {
       title: "Information Gathering",
-      description: "Tools for reconnaissance and information discovery"
+      description: "Network reconnaissance and target enumeration tools",
+      tools: getToolsByCategory("Information Gathering")
     },
-    "vulnerability-analysis": {
-      title: "Vulnerability Analysis", 
-      description: "Scanners and analyzers for identifying security weaknesses"
+    "wireless-hacking": {
+      title: "Wireless Hacking",
+      description: "WiFi security testing and wireless penetration tools",
+      tools: getToolsByCategory("Wireless Security")
     },
-    "wireless-security": {
-      title: "Wireless Security",
-      description: "Tools for wireless network security assessment"
-    },
-    "web-application": {
-      title: "Web Application",
-      description: "Security testing tools for web applications"
-    },
-    "forensics": {
-      title: "Forensics",
-      description: "Digital forensics and incident response tools"
+    "social-engineering": {
+      title: "Social Engineering",
+      description: "Phishing frameworks and social manipulation tools",
+      tools: getToolsByCategory("Social Engineering")
     },
     "exploitation": {
       title: "Exploitation",
-      description: "Frameworks and tools for security exploitation"
+      description: "Vulnerability exploitation and payload generation",
+      tools: getToolsByCategory("Exploitation")
     },
-    "mobile-security": {
-      title: "Mobile Security",
-      description: "Security assessment tools for mobile applications"
+    "password-cracking": {
+      title: "Password Cracking",
+      description: "Hash cracking and password recovery utilities",
+      tools: getToolsByCategory("Password Attacks")
     },
-    "password-attacks": {
-      title: "Password Attacks", 
-      description: "Password cracking and analysis utilities"
+    "vulnerability-scanning": {
+      title: "Vulnerability Scanning",
+      description: "Automated security assessment and scanning tools",
+      tools: getToolsByCategory("Vulnerability Analysis")
     },
-    "reverse-engineering": {
-      title: "Reverse Engineering",
-      description: "Tools for analyzing and understanding binary code"
+    "forensics": {
+      title: "Forensics",
+      description: "Digital forensics and incident response tools",
+      tools: getToolsByCategory("Forensics")
+    },
+    "web-assessment": {
+      title: "Web Assessment",
+      description: "Web application security testing frameworks",
+      tools: getToolsByCategory("Web Application")
     }
   };
 
-  return categoryMap[category] || { title: "Unknown Category", description: "Category not found" };
+  return categoryMap[category] || { title: "Unknown Category", description: "Category not found", tools: [] };
 }
 
 export function getToolsByCategory(category: string): Tool[] {
