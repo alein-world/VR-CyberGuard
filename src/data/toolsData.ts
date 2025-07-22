@@ -353,10 +353,156 @@ export const toolsData: Record<string, Tool[]> = {
         "Use responsibly - don't access devices without permission",
         "Respect rate limits to maintain access to the service",
         "Monitor your own infrastructure using Shodan alerts",
-        "Keep API keys secure and rotate them regularly"
-      ]
-    }
-  ],
+         "Keep API keys secure and rotate them regularly"
+       ]
+     },
+     {
+       id: "whois",
+       name: "Whois", 
+       fullName: "Domain Registration Information Lookup",
+       description: "Query domain registration and ownership information",
+       longDescription: "Whois is a query and response protocol that provides registration information about domain names, IP addresses, and autonomous systems.",
+       category: "Information Gathering",
+       difficulty: "Beginner",
+       lastUpdated: "2024-01-14",
+       officialSite: "https://www.whois.net",
+       platform: "Cross-platform",
+       license: "Free",
+       icon: "🏢",
+       whatItIs: "A protocol and command-line tool for querying domain registration databases.",
+       whatItsUsedFor: "Investigators use Whois to identify domain owners, registration dates, contact information, and DNS settings for reconnaissance.",
+       howItWorks: "Queries distributed databases maintained by domain registrars and RIRs to retrieve registration information.",
+       commands: [
+         "whois example.com",
+         "whois 8.8.8.8", 
+         "whois -h whois.arin.net 192.168.1.1"
+       ],
+       results: [
+         "Domain: EXAMPLE.COM",
+         "Registrar: IANA Reserved Domains",
+         "Created: 1995-08-14",
+         "Expires: 2024-08-13"
+       ],
+       useCases: [
+         "Domain ownership verification",
+         "Brand protection monitoring", 
+         "Incident response investigation",
+         "Due diligence research"
+       ],
+       features: [
+         "Domain registration lookup",
+         "IP address allocation data",
+         "Contact information retrieval",
+         "Historical registration tracking",
+         "Multiple TLD support"
+       ],
+       installSteps: [
+         "Pre-installed on most Linux/Unix systems",
+         "Windows: Install via package manager or download binary",
+         "Test: whois --version"
+       ],
+       basicUsage: [
+         "Domain lookup: whois domain.com",
+         "IP lookup: whois 1.2.3.4",
+         "Specific server: whois -h server.com domain.com"
+       ],
+       advancedExamples: [
+         "Bulk lookup: for domain in $(cat list.txt); do whois $domain; done",
+         "Extract registrar: whois domain.com | grep -i registrar",
+         "Check expiration: whois domain.com | grep -i expir"
+       ],
+       realWorldScenarios: [
+         "Phishing Investigation: Trace malicious domains to identify threat actors",
+         "Brand Protection: Monitor for typosquatting and trademark infringement", 
+         "Acquisition Research: Verify domain ownership before purchase",
+         "Incident Response: Track command & control infrastructure"
+       ],
+       troubleshooting: [
+         "Rate limiting: Slow down queries to avoid blocks",
+         "Privacy protection: Contact info may be hidden",
+         "Server timeout: Try different whois servers"
+       ],
+       securityTips: [
+         "Cross-reference with multiple sources",
+         "Be aware of privacy protection services",
+         "Monitor your own domains for changes"
+       ]
+     },
+     {
+       id: "theharvester",
+       name: "theHarvester",
+       fullName: "Email, Subdomain and People Names Harvester", 
+       description: "Gather emails, subdomains, hosts, employee names from public sources",
+       longDescription: "theHarvester is a tool for gathering subdomain names, e-mail addresses, virtual hosts, open ports/banners, and employee names from different public sources.",
+       category: "Information Gathering",
+       difficulty: "Intermediate",
+       lastUpdated: "2024-01-16",
+       officialSite: "https://github.com/laramies/theHarvester",
+       downloadUrl: "https://github.com/laramies/theHarvester",
+       platform: "Cross-platform", 
+       license: "Open Source",
+       icon: "📧",
+       whatItIs: "An OSINT tool that gathers information about targets from public sources like search engines and social media.",
+       whatItsUsedFor: "Penetration testers use theHarvester for reconnaissance to gather email addresses, subdomains, and employee information for social engineering and attack surface mapping.",
+       howItWorks: "Queries various public sources including search engines, PGP key servers, SHODAN, and social networks to collect target information.",
+       commands: [
+         "theharvester -d example.com -b google",
+         "theharvester -d example.com -b all -l 500",
+         "theharvester -d example.com -b linkedin -l 200"
+       ],
+       results: [
+         "Found 45 email addresses for example.com",
+         "Discovered 12 subdomains",
+         "Located 8 employee names on LinkedIn",
+         "Identified 3 IP addresses"
+       ],
+       useCases: [
+         "Email address enumeration for phishing tests",
+         "Subdomain discovery for attack surface mapping", 
+         "Employee enumeration for social engineering",
+         "Passive reconnaissance and OSINT gathering"
+       ],
+       features: [
+         "Multiple search engine support",
+         "Social media integration",
+         "Subdomain enumeration", 
+         "Email harvesting",
+         "Employee name gathering"
+       ],
+       installSteps: [
+         "Clone repository: git clone https://github.com/laramies/theHarvester",
+         "Install dependencies: pip3 install -r requirements.txt", 
+         "Run: python3 theHarvester.py"
+       ],
+       basicUsage: [
+         "Google search: theHarvester -d target.com -b google",
+         "All sources: theHarvester -d target.com -b all",
+         "Limit results: theHarvester -d target.com -b bing -l 100"
+       ],
+       advancedExamples: [
+         "Save results: theHarvester -d target.com -b all -f results.html",
+         "Shodan integration: theHarvester -d target.com -b shodan",
+         "DNS brute force: theHarvester -d target.com -c"
+       ],
+       realWorldScenarios: [
+         "Penetration Test Prep: Gather target emails for spear phishing campaign",
+         "Bug Bounty: Discover forgotten subdomains that may contain vulnerabilities",
+         "Red Team Exercise: Collect employee names for social engineering attacks",
+         "Security Assessment: Map organization's digital footprint and exposure"
+       ],
+       troubleshooting: [
+         "API limits: Get API keys for better results",
+         "Rate limiting: Use delays between queries", 
+         "No results: Try different sources or broader searches"
+       ],
+       securityTips: [
+         "Only use on authorized targets",
+         "Respect API terms of service",
+         "Be aware of legal implications",
+         "Use gathered information responsibly"
+       ]
+     }
+   ],
   "vulnerability-analysis": [
     {
       id: "nikto",
@@ -1768,7 +1914,20 @@ export function getCategoryData(category: string) {
 }
 
 export function getToolsByCategory(category: string): Tool[] {
-  return toolsData[category] || [];
+  // Map category names to data keys
+  const categoryKeyMap: Record<string, string> = {
+    "Information Gathering": "information-gathering",
+    "Wireless Security": "wireless-hacking",
+    "Social Engineering": "social-engineering",
+    "Exploitation": "exploitation",
+    "Password Attacks": "password-cracking",
+    "Vulnerability Analysis": "vulnerability-scanning",
+    "Forensics": "forensics",
+    "Web Application": "web-assessment"
+  };
+  
+  const dataKey = categoryKeyMap[category] || category;
+  return toolsData[dataKey] || [];
 }
 
 export function getAllTools(): Tool[] {
