@@ -20,6 +20,7 @@ import heroImage from "@/assets/hero-hacker.jpg";
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [userIP, setUserIP] = useState<string>("");
+  const [currentTime, setCurrentTime] = useState<string>("");
 
   useEffect(() => {
     // Capture user's IP address
@@ -35,6 +36,24 @@ export default function HomePage() {
     };
     
     fetchUserIP();
+  }, []);
+
+  useEffect(() => {
+    // Update time every second
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString('en-US', { 
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }));
+    };
+    
+    updateTime(); // Initial call
+    const timer = setInterval(updateTime, 1000);
+    
+    return () => clearInterval(timer);
   }, []);
 
   const categories = [
@@ -192,13 +211,26 @@ export default function HomePage() {
             </div>
           </div>
           
-          {/* User IP Display */}
-          {userIP && (
+          {/* User IP and Time Display */}
+          {(userIP || currentTime) && (
             <div className="mt-8 text-center">
-              <div className="inline-flex items-center px-4 py-2 bg-card/80 border border-border/50 rounded-lg backdrop-blur-sm">
-                <Globe className="h-4 w-4 text-cyber-blue mr-2" />
-                <span className="text-sm text-muted-foreground">Your IP: </span>
-                <span className="text-sm font-mono text-cyber-green ml-1">{userIP}</span>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                {userIP && (
+                  <div className="inline-flex items-center px-4 py-2 bg-card/80 border border-border/50 rounded-lg backdrop-blur-sm">
+                    <Globe className="h-4 w-4 text-cyber-blue mr-2" />
+                    <span className="text-sm text-muted-foreground">Your IP: </span>
+                    <span className="text-sm font-mono text-cyber-green ml-1">{userIP}</span>
+                  </div>
+                )}
+                {currentTime && (
+                  <div className="inline-flex items-center px-4 py-2 bg-card/80 border border-border/50 rounded-lg backdrop-blur-sm">
+                    <svg className="h-4 w-4 text-cyber-red mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-sm text-muted-foreground">System Time: </span>
+                    <span className="text-sm font-mono text-cyber-red ml-1">{currentTime}</span>
+                  </div>
+                )}
               </div>
             </div>
           )}
