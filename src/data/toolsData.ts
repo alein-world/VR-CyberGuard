@@ -35,6 +35,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Find the geolocation of any IP address",
       longDescription: "This tool allows you to find the geolocation of any IP address. It uses a third-party API to find the location of the IP address and displays it on a map.",
       category: "Information Gathering",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-15",
+      icon: "🌍",
       commands: [
         "curl ipinfo.io",
         "curl ipinfo.io/8.8.8.8",
@@ -67,6 +70,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Network discovery and security auditing",
       longDescription: "Nmap (Network Mapper) is a free and open source utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime.",
       category: "Information Gathering",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-10",
+      icon: "🔍",
       commands: [
         "nmap -sS target_ip",
         "nmap -sV target_ip",
@@ -424,22 +430,6 @@ export const toolsData: { [key: string]: Tool[] } = {
   ]
 };
 
-export const getCategoryData = (categoryName: string) => {
-  const category = categories.find(cat => cat.name.toLowerCase().replace(/\s+/g, '-') === categoryName);
-  const tools = getToolsByCategory(category?.name || categoryName);
-  
-  return {
-    title: category?.name || categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-    description: category?.description || "Tools and utilities for cybersecurity professionals",
-    tools: tools.map(tool => ({
-      ...tool,
-      difficulty: tool.difficulty || "Intermediate",
-      lastUpdated: tool.lastUpdated || "Recently",
-      icon: tool.icon || "🔧"
-    }))
-  };
-};
-
 export const getToolsByCategory = (categoryName: string) => {
   console.log('Getting tools for category:', categoryName);
   
@@ -456,6 +446,22 @@ export const getToolsByCategory = (categoryName: string) => {
   
   console.log('Found tools:', tools);
   return tools;
+};
+
+export const getCategoryData = (categoryName: string) => {
+  const category = categories.find(cat => cat.name.toLowerCase().replace(/\s+/g, '-') === categoryName);
+  const tools = getToolsByCategory(category?.name || categoryName);
+  
+  return {
+    title: category?.name || categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+    description: category?.description || "Tools and utilities for cybersecurity professionals",
+    tools: tools.map(tool => ({
+      ...tool,
+      difficulty: tool.difficulty || "Intermediate",
+      lastUpdated: tool.lastUpdated || "Recently",
+      icon: tool.icon || "🔧"
+    }))
+  };
 };
 
 export const getAllTools = () => {
