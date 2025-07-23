@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { toolsData, getToolById } from '@/data/toolsData';
-import Header from '@/components/Header';
+import { Header } from '@/components/Header';
 import { Badge } from '@/components/ui/badge';
 import { Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';

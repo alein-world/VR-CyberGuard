@@ -424,6 +424,22 @@ export const toolsData: { [key: string]: Tool[] } = {
   ]
 };
 
+export const getCategoryData = (categoryName: string) => {
+  const category = categories.find(cat => cat.name.toLowerCase().replace(/\s+/g, '-') === categoryName);
+  const tools = getToolsByCategory(category?.name || categoryName);
+  
+  return {
+    title: category?.name || categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+    description: category?.description || "Tools and utilities for cybersecurity professionals",
+    tools: tools.map(tool => ({
+      ...tool,
+      difficulty: tool.difficulty || "Intermediate",
+      lastUpdated: tool.lastUpdated || "Recently",
+      icon: tool.icon || "🔧"
+    }))
+  };
+};
+
 export const getToolsByCategory = (categoryName: string) => {
   console.log('Getting tools for category:', categoryName);
   
