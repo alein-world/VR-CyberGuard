@@ -150,6 +150,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "High-speed port scanner",
       longDescription: "Masscan is an Internet-scale port scanner. It can scan the entire Internet in under 6 minutes, transmitting 10 million packets per second, from a single machine.",
       category: "Information Gathering",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-12",
+      icon: "⚡",
       commands: [
         "masscan -p80,8000-8100 10.0.0.0/8",
         "masscan -p1-65535 192.168.1.0/24 --rate=1000",
@@ -179,6 +182,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Search engine for Internet-connected devices",
       longDescription: "Shodan is a search engine that lets users find specific types of computers connected to the internet using a variety of filters.",
       category: "Information Gathering",
+      difficulty: "Intermediate", 
+      lastUpdated: "2024-01-11",
+      icon: "🌐",
       commands: [
         "shodan search apache",
         "shodan host 8.8.8.8",
@@ -208,6 +214,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Domain registration information lookup",
       longDescription: "Whois is a query and response protocol that is widely used for querying databases that store the registered users or assignees of an Internet resource.",
       category: "Information Gathering",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-14",
+      icon: "📄",
       commands: [
         "whois example.com",
         "whois -h whois.arin.net 8.8.8.8"
@@ -235,6 +244,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Email, subdomain and people names harvester",
       longDescription: "theHarvester is a very simple to use, yet powerful and effective tool designed to be used in the early stages of a penetration test or red team engagement.",
       category: "Information Gathering",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-09",
+      icon: "🔍",
       commands: [
         "theharvester -d example.com -l 500 -b google",
         "theharvester -d example.com -b all"
@@ -264,6 +276,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Generate various types of cryptographic hashes",
       longDescription: "A comprehensive hashing tool that supports multiple hash algorithms including MD5, SHA-1, SHA-256, SHA-512, and more. Essential for data integrity verification, password hashing, and digital forensics.",
       category: "Cryptography",
+      difficulty: "Beginner",
+      lastUpdated: "2024-01-15",
+      icon: "🔐",
       commands: [
         "echo 'text' | md5sum",
         "echo 'text' | sha256sum",
@@ -303,6 +318,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Advanced password recovery tool",
       longDescription: "Hashcat is the world's fastest and most advanced password recovery utility, supporting five unique modes of attack for over 300 highly-optimized hashing algorithms.",
       category: "Cryptography",
+      difficulty: "Advanced",
+      lastUpdated: "2024-01-13",
+      icon: "🔨",
       commands: [
         "hashcat -m 0 hash.txt wordlist.txt",
         "hashcat -m 1000 ntlm_hash.txt rockyou.txt",
@@ -332,6 +350,9 @@ export const toolsData: { [key: string]: Tool[] } = {
       description: "Password cracking tool",
       longDescription: "John the Ripper is a free password cracking software tool. It combines several cracking modes in one program and is fully configurable for your particular needs.",
       category: "Cryptography",
+      difficulty: "Intermediate",
+      lastUpdated: "2024-01-11",
+      icon: "🔪",
       commands: [
         "john --wordlist=rockyou.txt hash.txt",
         "john --show hash.txt",
@@ -1394,6 +1415,12 @@ export const toolsData: { [key: string]: Tool[] } = {
 export const getToolsByCategory = (categoryName: string) => {
   console.log('Getting tools for category:', categoryName);
   
+  // Handle URL-style category names by converting them properly
+  const normalizedCategoryName = categoryName
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  
   // Map display names to data keys
   const categoryMap: { [key: string]: string } = {
     "Information Gathering": "information-gathering",
@@ -1409,7 +1436,8 @@ export const getToolsByCategory = (categoryName: string) => {
     "Web Assessment": "web-assessment"
   };
   
-  const dataKey = categoryMap[categoryName];
+  // Try to find by normalized name first, then by original
+  const dataKey = categoryMap[normalizedCategoryName] || categoryMap[categoryName] || categoryName;
   const tools = toolsData[dataKey as keyof typeof toolsData] || [];
   
   console.log('Found tools:', tools);
@@ -1417,11 +1445,21 @@ export const getToolsByCategory = (categoryName: string) => {
 };
 
 export const getCategoryData = (categoryName: string) => {
-  const category = categories.find(cat => cat.name.toLowerCase().replace(/\s+/g, '-') === categoryName);
-  const tools = getToolsByCategory(category?.name || categoryName);
+  // Handle URL-style category names
+  const normalizedCategoryName = categoryName
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+    
+  const category = categories.find(cat => 
+    cat.name.toLowerCase().replace(/\s+/g, '-') === categoryName ||
+    cat.name === normalizedCategoryName
+  );
+  
+  const tools = getToolsByCategory(categoryName);
   
   return {
-    title: category?.name || categoryName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+    title: category?.name || normalizedCategoryName,
     description: category?.description || "Tools and utilities for cybersecurity professionals",
     tools: tools.map(tool => ({
       ...tool,
